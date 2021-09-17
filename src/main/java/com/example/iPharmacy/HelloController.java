@@ -26,7 +26,33 @@ public class HelloController {
 
 	@GetMapping("/")
 	public String index() {
-		return "Hello World! Yuan-Chieh Ying says hi.";
+		return "Hello World!";
 	}
 
+	@RequestMapping(value = "/random-number", method = RequestMethod.GET)
+	public String randomNumber()
+	{
+		return "Your random number is: " + ((int)(Math.random() * 100) + 1);
+	}
+
+	@RequestMapping(value = "/display-accounts", method = RequestMethod.GET)
+	public String displayAccounts()
+	{
+		return new Gson().toJson(accounts);
+	}
+
+	@RequestMapping(value = "/create-account", method = RequestMethod.POST)
+	public Account createAccount(
+			@RequestParam("username") String username,
+			@RequestParam("password") String password
+	) {
+		Account newAccount = new Account(username, password);
+		accounts.add(newAccount);
+		return newAccount;
+	}
+
+	@GetMapping("/myName")
+	public String jayName() {
+		return "Yuan-Chieh Ying";
+	}
 }

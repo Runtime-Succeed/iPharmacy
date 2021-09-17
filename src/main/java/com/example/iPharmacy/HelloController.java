@@ -2,14 +2,13 @@ package com.example.iPharmacy;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @RestController
 public class HelloController {
@@ -39,6 +38,12 @@ public class HelloController {
 	public String displayAccounts()
 	{
 		return new Gson().toJson(accounts);
+	}
+	
+	@RequestMapping(value = "/display-accounts-pretty", method = RequestMethod.GET, produces = "text/plain")
+	public String displayAccountsPretty()
+	{
+		return new GsonBuilder().setPrettyPrinting().create().toJson(accounts);
 	}
 
 	@RequestMapping(value = "/create-account", method = RequestMethod.POST)

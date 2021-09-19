@@ -65,4 +65,9 @@ public class HelloController {
 	public String name_Chen() {
 		return "The World say hello to Chen";
 	}
+
+	@GetMapping("/siwen")
+	public String name_wang() {
+		return "Hello Siwen";
+	}
 }

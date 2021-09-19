@@ -20,7 +20,6 @@ function createAccount() {
     }
     });
   }
-  
 }
 
 function getRandom() {

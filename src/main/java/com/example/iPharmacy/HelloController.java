@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import java.io.IOException;
 
 @RestController
 public class HelloController {
@@ -69,5 +74,30 @@ public class HelloController {
 	@GetMapping("/siwen")
 	public String name_wang() {
 		return "Hello Siwen";
+	}
+
+	@GetMapping("/links")
+	public String getLinks() throws IOException {
+		Document doc = Jsoup.connect("http://anyurl.com").userAgent("Google").get();
+		String linkList = "";
+		try {
+
+			// need http protocol
+			doc = Jsoup.connect("http://google.com").get();
+
+			// get page title
+			String title = doc.title();
+			System.out.println("title : " + title);
+
+			// get all links
+			Elements links = doc.select("a[href]");
+			for (Element link : links) {
+				linkList += "\nlink : " + link.attr("href") + "\ntext : " + link.text();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return linkList;
 	}
 }

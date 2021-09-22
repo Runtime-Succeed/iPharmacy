@@ -100,4 +100,8 @@ public class HelloController {
 		}
 		return linkList;
 	}
+	@GetMapping("/team-member-4")
+	public String teammate() {
+		return "Ana Barcenas ";
+	}
 }

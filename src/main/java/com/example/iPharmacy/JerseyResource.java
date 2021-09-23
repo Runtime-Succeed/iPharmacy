@@ -25,6 +25,6 @@ public class JerseyResource {
         OAuth2AuthenticationToken authenticationToken = (OAuth2AuthenticationToken) securityContext.getUserPrincipal();
         OAuth2AuthenticatedPrincipal authenticatedPrincipal = authenticationToken.getPrincipal();
         String userName = authenticatedPrincipal.getAttribute("login");
-        return "Hello " + userName;
+        return "Hello " + userName + ", welcome back to iPharmacy.";
     }
 }

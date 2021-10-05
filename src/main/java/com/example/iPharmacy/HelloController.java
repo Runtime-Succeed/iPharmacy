@@ -62,7 +62,7 @@ public class HelloController {
 	}
 
 	@GetMapping("/myName")
-	public String jayName() {
+	public String printInput() {
 		return "Yuan-Chieh Ying";
 	}
 

@@ -1,40 +1,31 @@
 package com.example.iPharmacy;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.example.iPharmacy.database.DBApplicationController;
 import com.example.iPharmacy.database.Document;
 import com.example.iPharmacy.database.DocumentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
+@WebMvcTest(DBApplicationController.class)
+@WithMockUser
 public class IPharmacyApplicationTests {
 	
+	@Autowired
 	private MockMvc mvc;
 	
-	@Mock
+	@MockBean
 	private DocumentRepository repo;
-	
-	@Before
-	public void setup() {
-		System.out.println("before...");
-		mvc = MockMvcBuilders.standaloneSetup(new DBApplicationController(repo)).build();
-	}
-
-	@After
-	public void cleanup() {
-		System.out.println("after...");
-	}
 	
 	@Test
 	public void testGetNumberOfDocuments() throws Exception {
@@ -43,7 +34,7 @@ public class IPharmacyApplicationTests {
 				).andReturn();
 		
 		Document doc = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Document.class);
-		Assert.assertEquals("d1", doc.getId());
+		Assertions.assertEquals("d1", doc.getId());
 	}
 
 	@Test

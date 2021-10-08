@@ -104,4 +104,11 @@ public class HelloController {
 	public String teammate() {
 		return "Ana Barcenas ";
 	}
+
+	public String correct = "Thalitone";
+	public boolean checkAnswer(String answer) {
+		String n_correct = correct.toLowerCase().replaceAll("\\s+","");
+		String n_answer = answer.toLowerCase().replaceAll("\\s+","");
+		return n_answer.equals(n_correct);
+	}
 }

@@ -48,6 +48,25 @@ public class IPharmacyApplicationTests {
 	public void contextLoads() {
 	}
 
+	@Test
+	public void checkTest1()  {
+		HelloController h = new HelloController();
+		Boolean b = h.checkAnswer("thalitdone");
+		Assertions.assertEquals(true,b);
+	}
 
+	@Test
+	public void checkTest2()  {
+		HelloController h = new HelloController();
+		Boolean b = h.checkAnswer("ThalitdonE ");
+		Assertions.assertEquals(true,b);
+	}
+
+	@Test
+	public void checkTest3()  {
+		HelloController h = new HelloController();
+		Boolean b = h.checkAnswer("THALITDONEe");
+		Assertions.assertEquals(false,b);
+	}
 
 }

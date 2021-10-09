@@ -1,9 +1,10 @@
-package com.example.iPharmacy;
+package com.example.iPharmacy.data;
 import java.util.*;
 import java.io.*;
 
+//converted to QuestionSet and Question classes
 public class testDocument {
-    ArrayList<question> questions = new ArrayList<>();
+    public ArrayList<question> questions = new ArrayList<>();
 
     class question {
         private ArrayList<String[]> answers = new ArrayList<>();

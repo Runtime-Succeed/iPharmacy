@@ -6,6 +6,7 @@ import java.nio.file.Path;
 
 import org.springframework.data.annotation.Id;
 
+//converted to QuestionSet and Question classes
 public class Document {
 	
 	@Id

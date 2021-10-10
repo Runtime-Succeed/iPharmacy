@@ -13,6 +13,8 @@ public class QuestionSet {
 	private List<String> answerCols;
 	private List<Question> questions;
 	
+	public QuestionSet() {}
+	
 	/**
 	 * 
 	 * @param title

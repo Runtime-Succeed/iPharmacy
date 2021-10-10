@@ -9,6 +9,8 @@ public class Question {
 	private String questionText;
 	private Map<String, List<String>> answers;
 	
+	public Question() {}
+	
 	/**
 	 * 
 	 * @param questionText

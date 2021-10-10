@@ -1,5 +1,8 @@
 package com.example.iPharmacy;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,10 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.example.iPharmacy.data.QuestionSet;
 import com.example.iPharmacy.data.testDocument;
 import com.example.iPharmacy.database.DBApplicationController;
-import com.example.iPharmacy.database.Document;
-import com.example.iPharmacy.database.DocumentRepository;
+import com.example.iPharmacy.database.QuestionSetRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(DBApplicationController.class)
@@ -26,16 +29,21 @@ public class IPharmacyApplicationTests {
 	private MockMvc mvc;
 	
 	@MockBean
-	private DocumentRepository repo;
+	private QuestionSetRepository repo;
 	
 	@Test
-	public void testGetNumberOfDocuments() throws Exception {
+	public void testGetExampleQuestionSet() throws Exception {
 		MvcResult result = mvc.perform(
-				MockMvcRequestBuilders.get("/test-document").accept(MediaType.APPLICATION_JSON)
+				MockMvcRequestBuilders.get("/example/questionSet").accept(MediaType.APPLICATION_JSON)
 				).andReturn();
 		
-		Document doc = new ObjectMapper().readValue(result.getResponse().getContentAsString(), Document.class);
-		Assertions.assertEquals("d1", doc.getId());
+		QuestionSet qs = new ObjectMapper().readValue(result.getResponse().getContentAsString(), QuestionSet.class);
+		Assertions.assertEquals("HTN Dosage List", qs.getTitle());
+		Assertions.assertEquals(30, qs.getRows());
+		Assertions.assertEquals("Generic", qs.getQuestionAsk());
+		Assertions.assertEquals(
+				new ArrayList<String>(Arrays.asList("Brand", "Dose (mg)", "Max Dose (mg)")), 
+				qs.getAnswerCols());
 	}
 
 	@Test

@@ -13,6 +13,7 @@ public class Tester {
 	
 	public static void main(String[] args) throws JsonProcessingException {
 		
+		//example #1: HTN_Dosage_List
 		Map<String, List<String>> map1 = new LinkedHashMap<>();
 		map1.put("Brand", new ArrayList<>(Arrays.asList("Thalitone")));
 		map1.put("Dose (mg)", new ArrayList<>(Arrays.asList("25 QD")));
@@ -46,30 +47,31 @@ public class Tester {
 		System.out.println(res);
 		System.out.println(qs);
 		
-		/*
-		 * Second example, need to switch arrays to lists
-		 * 
-		 * Map<String, String[]> map4 = new HashMap<>();
-		map4.put("Generic", new String[] {"Ampicillin"});
-		map4.put("Classification", new String[] {"PNC"});
+		//example #2: ABX
+		Map<String, List<String>> map4 = new LinkedHashMap<>();
+		map4.put("Generic", new ArrayList<>(Arrays.asList("Ampicillin")));
+		map4.put("Classification", new ArrayList<>(Arrays.asList("PNC")));
 		
-		Map<String, String[]> map5 = new HashMap<>();
-		map5.put("Generic", new String[] {"Piperacillin", "Tazobactam"});
-		map5.put("Classification", new String[] {"PNC"});
+		Map<String, List<String>> map5 = new LinkedHashMap<>();
+		map5.put("Generic", new ArrayList<>(Arrays.asList("Piperacillin", "Tazobactam")));
+		map5.put("Classification", new ArrayList<>(Arrays.asList("PNC")));
 		
-		Map<String, String[]> map6 = new HashMap<>();
-		map6.put("Generic", new String[] {"Amoxicillin", "Clavulanate"});
-		map6.put("Classification", new String[] {"PNC"});
+		Map<String, List<String>> map6 = new LinkedHashMap<>();
+		map6.put("Generic", new ArrayList<>(Arrays.asList("Amoxicillin", "Clavulanate")));
+		map6.put("Classification", new ArrayList<>(Arrays.asList("PNC")));
 		
-		Question[] questions = new Question[3];
-		questions[0] = new Question("Unasyn", map4);
-		questions[1] = new Question("Zosyn", map5);
-		questions[2] = new Question("Augmentin", map6);
+		Question q4 = new Question("Unasyn", map4);
+		Question q5 = new Question("Zosyn", map5);
+		Question q6 = new Question("Augmentin", map6);
 
-		QuestionSet qs2 = new QuestionSet("ABX", 28, new String[] {"Brand", "Generic", "Classification"}, questions);
+		QuestionSet qs2 = new QuestionSet(
+				"ABX", 
+				28, 
+				new ArrayList<>(Arrays.asList("Brand", "Generic", "Classification")), 
+				new ArrayList<>(Arrays.asList(q4, q5, q6)));
 		
 		String res2 = o.writerWithDefaultPrettyPrinter().writeValueAsString(qs2);
 		System.out.println(res2);
-		System.out.println(qs2);*/		
+		System.out.println(qs2);		
 	}
 }

@@ -6,26 +6,26 @@ import java.util.Map;
 
 public class Question {
 	
-	private String qText;
+	private String questionText;
 	private Map<String, List<String>> answers;
 	
 	/**
 	 * 
-	 * @param qText
+	 * @param questionText
 	 * @param answers
 	 */
-	public Question(String qText, Map<String, List<String>> answers) {
+	public Question(String questionText, Map<String, List<String>> answers) {
 		
-		this.qText = qText;
+		this.questionText = questionText;
 		this.answers = new LinkedHashMap<>(answers);	//shallow copy
 	}
 
-	public String getqText() {
-		return qText;
+	public String getQuestionText() {
+		return questionText;
 	}
 
-	public void setqText(String qText) {
-		this.qText = qText;
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
 	}
 
 	public Map<String, List<String>> getAnswers() {
@@ -35,4 +35,6 @@ public class Question {
 	public void setAnswers(Map<String, List<String>> answers) {
 		this.answers = new LinkedHashMap<>(answers);
 	}
+	
+	
 }

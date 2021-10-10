@@ -13,6 +13,12 @@ public class Tester {
 	
 	public static void main(String[] args) throws JsonProcessingException {
 		
+		Tester t = new Tester();
+		t.example();
+	}
+	
+	public void example() throws JsonProcessingException {
+		
 		//example #1: HTN_Dosage_List
 		Map<String, List<String>> map1 = new LinkedHashMap<>();
 		map1.put("Brand", new ArrayList<>(Arrays.asList("Thalitone")));
@@ -39,7 +45,8 @@ public class Tester {
 		QuestionSet qs = new QuestionSet(
 				"HTN Dosage List", 
 				30, 
-				new ArrayList<>(Arrays.asList("Generic", "Brand", "Dose (mg)", "Max Dose (mg)")), 
+				"Generic",
+				new ArrayList<>(Arrays.asList("Brand", "Dose (mg)", "Max Dose (mg)")), 
 				new ArrayList<>(Arrays.asList(q1, q2, q3)));
 		
 		ObjectMapper o = new ObjectMapper();
@@ -67,7 +74,8 @@ public class Tester {
 		QuestionSet qs2 = new QuestionSet(
 				"ABX", 
 				28, 
-				new ArrayList<>(Arrays.asList("Brand", "Generic", "Classification")), 
+				"Brand", 
+				new ArrayList<>(Arrays.asList("Generic", "Classification")), 
 				new ArrayList<>(Arrays.asList(q4, q5, q6)));
 		
 		String res2 = o.writerWithDefaultPrettyPrinter().writeValueAsString(qs2);

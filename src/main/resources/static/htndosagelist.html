@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <script src="js/script.js"></script>
+</head>
+<body onload="showQuestion(0)">
+
+<div class="container px-4 py-5" id="featured-3">
+    <h1 class="pb-2 border-bottom" id="title">Title</h1>
+    <div class="row g-4 py-5 row-cols-1">
+
+<div>
+    <div id="questionList">
+    </div>
+    <br/>
+    <a href="#" class="btn btn-primary" onclick="checkAnswer()">
+        Check answer
+    </a>
+    <div id="result"></div>
+</div>
+
+    </div>
+</div>
+
+<script>
+function showQuestion(questionPos) {
+    currPos = questionPos;
+    document.title = obj.title;
+    document.getElementById("title").innerHTML = obj.title;
+
+    for (let i=0; i<obj.columns.length; i++) {
+        let node = document.createElement("h4");
+        node.innerHTML = obj.columns[i];
+
+        if (i === 0) {
+            var question = document.createElement("text");
+            question.setAttribute("id", questionPos.toString());
+            question.innerHTML = ": " + obj.questions[questionPos].qText;
+            node.appendChild(question);
+            document.getElementById("questionList").appendChild(node);
+        }
+
+        else {
+            let inputSpace = document.createElement("input");
+            inputSpace.setAttribute("id", "a" + i.toString())
+            node.appendChild(inputSpace);
+            document.getElementById("questionList").appendChild(node);
+        }
+    }
+}
+
+// A simple version
+function checkAnswer() {
+    let result = true;
+    let answerList = []
+
+    for (let i=1; i<obj.columns.length; i++) {
+
+        answerList.push(document.getElementById("a" + i.toString()).value);
+
+        let temp = obj.columns[i];
+        // if the answer has single value only
+        if (obj.questions[currPos].answers[temp].length === 1) {
+            let answerCheck = obj.questions[currPos].answers[temp][0];
+            if (answerList[i-1] !== answerCheck)
+                result = false;
+        }
+
+        // if we have more than 1 answer
+        // TODO
+    }
+
+    if (result) {
+        let node = document.createElement("h5");
+        node.innerHTML = "All correct!";
+        document.getElementById("result").appendChild(node);
+    }
+    else {
+        let node = document.createElement("h5");
+        node.innerHTML = "Something is wrong";
+        document.getElementById("result").appendChild(node);
+    }
+}
+</script>
+
+
+</body>
+</html>

@@ -76,6 +76,34 @@ public class HelloController {
 		return "Hello Siwen";
 	}
 
+	@GetMapping("/jsontest")
+	public String jsonTest() {
+		return "{\n" +
+				"\t\"title\": \"HTN Dosage List\",\n" +
+				"\t\"row\": 30,\n" +
+				"\t\"col\": [\"Generic\", \"Brand\", \"Dose (mg)\", \"Max Dose(mg)\"],\n" +
+				"\t\"questions\": [{\n" +
+				"\t\t\t\"Generic\": \"Chlorthalidone\",\n" +
+				"\t\t\t\"Brand\": [\"Thalitone\"],\n" +
+				"\t\t\t\"Dose (mg)\": [\"25 QD\"],\n" +
+				"\t\t\t\"Max Dose(mg)\": [\"100 QD\"]\n" +
+				"\t\t},\n" +
+				"\t\t{\n" +
+				"\t\t\t\"Generic\": \"Lisinopril\",\n" +
+				"\t\t\t\"Brand\": [\"Prinivil\", \"Zestril\", \"Qbrelis\"],\n" +
+				"\t\t\t\"Dose (mg)\": [\"10-40 QD\"],\n" +
+				"\t\t\t\"Max Dose(mg)\": [\"40 QD\"]\n" +
+				"\t\t},\n" +
+				"\t\t{\n" +
+				"\t\t\t\"Generic\": \"Hydralazine\",\n" +
+				"\t\t\t\"Brand\": [\"-1\"],\n" +
+				"\t\t\t\"Dose (mg)\": [\"10-50 TID-QID\"],\n" +
+				"\t\t\t\"Max Dose(mg)\": [\"200 QD\"]\n" +
+				"\t\t}\n" +
+				"\t]\n" +
+				"}";
+	}
+
 	@GetMapping("/links")
 	public String getLinks() throws IOException {
 		Document doc = Jsoup.connect("http://anyurl.com").userAgent("Google").get();

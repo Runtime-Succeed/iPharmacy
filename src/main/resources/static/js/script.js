@@ -1,3 +1,14 @@
+function fetchData() {
+//jsontest.html
+  fetch("./json/htndosagelist.json")
+      .then(function (resp) {
+        return resp.json();
+  })
+      .then(function(data) {
+        console.log(data);
+      });
+}
+
 function createAccount() {
   //console.log("create account");
 
@@ -34,6 +45,7 @@ function getRandom() {
   });
 }
 
+
 function populateTable() {
 
   $.ajax({
@@ -52,3 +64,33 @@ function populateTable() {
   });
 
 }
+
+var currPos = 0;
+
+const obj = JSON.parse('{\n' +
+    '  "title" : "HTN Dosage List",\n' +
+    '  "rows" : 30,\n' +
+    '  "columns" : [ "Generic", "Brand", "Dose (mg)", "Max Dose (mg)" ],\n' +
+    '  "questions" : [ {\n' +
+    '    "qText" : "Chlorthalidone",\n' +
+    '    "answers" : {\n' +
+    '      "Brand" : [ "Thalitone" ],\n' +
+    '      "Dose (mg)" : [ "25 QD" ],\n' +
+    '      "Max Dose (mg)" : [ "100 QD" ]\n' +
+    '    }\n' +
+    '  }, {\n' +
+    '    "qText" : "Lisinopril",\n' +
+    '    "answers" : {\n' +
+    '      "Brand" : [ "Prinivil", "Zestril", "Qbrelis" ],\n' +
+    '      "Dose (mg)" : [ "10-40 QD" ],\n' +
+    '      "Max Dose (mg)" : [ "40 QD" ]\n' +
+    '    }\n' +
+    '  }, {\n' +
+    '    "qText" : "Hydralazine",\n' +
+    '    "answers" : {\n' +
+    '      "Brand" : [ "-1" ],\n' +
+    '      "Dose (mg)" : [ "10-50 TID-QID" ],\n' +
+    '      "Max Dose (mg)" : [ "200 QD" ]\n' +
+    '    }\n' +
+    '  } ]\n' +
+    '}');

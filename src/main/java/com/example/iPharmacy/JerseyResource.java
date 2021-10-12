@@ -19,12 +19,18 @@ public class JerseyResource {
         return "Log in with <a href=\"/oauth2/authorization/github\">GitHub</a>";
     }
 
+    public String name = "";
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String home(@Context SecurityContext securityContext) {
         OAuth2AuthenticationToken authenticationToken = (OAuth2AuthenticationToken) securityContext.getUserPrincipal();
         OAuth2AuthenticatedPrincipal authenticatedPrincipal = authenticationToken.getPrincipal();
         String userName = authenticatedPrincipal.getAttribute("login");
+        name = userName;
         return "Hello " + userName + ", welcome back to iPharmacy.";
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -57,7 +57,7 @@ public class HelloController {
 			@RequestParam("password") String password
 	) {
 		Account newAccount = new Account(username, password);
-		accounts.add(newAccount);
+//		accounts.add(newAccount);
 		return newAccount;
 	}
 
@@ -111,4 +111,6 @@ public class HelloController {
 		String n_answer = answer.toLowerCase().replaceAll("\\s+","");
 		return n_answer.equals(n_correct);
 	}
+
+
 }

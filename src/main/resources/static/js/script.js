@@ -1,6 +1,70 @@
 var currPos = 0;
 var obj;
 
+async function showQuestion(questionPos) {
+
+  await fetch("./json/htndosagelist.json")
+      .then(res => res.json())
+      .then(data => obj = data)
+  // .then(() => console.log(obj))
+
+  currPos = questionPos;
+  document.title = obj.title;
+  document.getElementById("title").innerHTML = obj.title;
+
+  for (let i=0; i<obj.columns.length; i++) {
+    let node = document.createElement("h4");
+    node.innerHTML = obj.columns[i];
+
+    if (i === 0) {
+      var question = document.createElement("text");
+      question.setAttribute("id", questionPos.toString());
+      question.innerHTML = ": " + obj.questions[questionPos].qText;
+      node.appendChild(question);
+      document.getElementById("questionList").appendChild(node);
+    }
+
+    else {
+      let inputSpace = document.createElement("input");
+      inputSpace.setAttribute("id", "a" + i.toString())
+      node.appendChild(inputSpace);
+      document.getElementById("questionList").appendChild(node);
+    }
+  }
+}
+
+function checkAnswer() {
+  let result = true;
+  let answerList = []
+
+  for (let i=1; i<obj.columns.length; i++) {
+
+    answerList.push(document.getElementById("a" + i.toString()).value);
+
+    let temp = obj.columns[i];
+    // if the answer has single value only
+    if (obj.questions[currPos].answers[temp].length === 1) {
+      let answerCheck = obj.questions[currPos].answers[temp][0];
+      if (answerList[i-1] !== answerCheck)
+        result = false;
+    }
+
+    // if we have more than 1 answer
+    // TODO
+  }
+
+  if (result) {
+    let node = document.createElement("h5");
+    node.innerHTML = "All correct!";
+    document.getElementById("result").appendChild(node);
+  }
+  else {
+    let node = document.createElement("h5");
+    node.innerHTML = "Something is wrong";
+    document.getElementById("result").appendChild(node);
+  }
+}
+
 function createAccount() {
   //console.log("create account");
 

@@ -78,4 +78,19 @@ public class IPharmacyApplicationTests {
 		Assertions.assertEquals(false,b);
 	}
 
+	public void test1() throws IOException {
+		File myfile = new File("src/main/resources/words2.txt");
+		ReadFileController test= new ReadFileController();
+		test.isCopy(myfile);
+		Assertions.assertEquals(false,test.isCopy(myfile));
+
+	}
+	@Test
+	public void test2() throws IOException {
+		File myfile = new File("src/main/resources/words2.txt");
+		ReadFileController test= new ReadFileController();
+		test.isCopy(myfile);
+		Assertions.assertEquals(true,test.isCopy(myfile));
+
+	}
 }

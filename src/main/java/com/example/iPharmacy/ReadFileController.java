@@ -31,7 +31,11 @@ public String file() throws IOException {
                     StandardCharsets.UTF_8.name());
             return "Number of lines in file: "+lines.size();
     }
-
+public boolean isCopy(File filecontent) throws IOException {
+    String contents = FileUtils.readFileToString(filecontent,
+            StandardCharsets.UTF_8.name());
+        return contents.equals(filecontent);
+}
 
     }
 

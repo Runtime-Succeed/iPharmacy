@@ -36,6 +36,13 @@ public class DBApplicationController {
 		return s;
 	}
 	
+	//test endpoint for now
+	@GetMapping("/data/htn-dosage-list")
+	public QuestionSet getHtn() {
+		System.out.println("/data/htn-dosage-list reached");
+		return repository.findById("HTN Dosage List").get();
+	}
+	
 	//need front-end connection to test
 	@PostMapping("/upload")
 	public void uploadData(@RequestBody QuestionSet qs) {

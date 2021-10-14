@@ -3,7 +3,7 @@ var obj;
 
 async function showQuestion(questionPos) {
 
-  await fetch("./json/htndosagelist.json")
+  await fetch("/data/htn-dosage-list")
       .then(res => res.json())
       .then(data => obj = data)
   // .then(() => console.log(obj))

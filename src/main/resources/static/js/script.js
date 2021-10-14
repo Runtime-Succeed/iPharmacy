@@ -3,33 +3,33 @@ var obj;
 
 async function showQuestion(questionPos) {
 
-  await fetch("/data/htn-dosage-list")
+  await fetch("./json/HTN_Dosage_List (3).json")
       .then(res => res.json())
       .then(data => obj = data)
-  // .then(() => console.log(obj))
+  // .then(() => console.log(obj))  // don't delete this line
 
   currPos = questionPos;
   document.title = obj.title;
   document.getElementById("title").innerHTML = obj.title;
 
-  for (let i=0; i<obj.columns.length; i++) {
-    let node = document.createElement("h4");
-    node.innerHTML = obj.columns[i];
+  let node = document.createElement("h4");
+  node.innerHTML = obj.questionAsk + ": " + obj.questions[questionPos].questionText;
+  document.getElementById("questionList").appendChild(node);
 
-    if (i === 0) {
-      var question = document.createElement("text");
-      question.setAttribute("id", questionPos.toString());
-      question.innerHTML = ": " + obj.questions[questionPos].qText;
-      node.appendChild(question);
-      document.getElementById("questionList").appendChild(node);
-    }
+  for (let i=0; i<obj.answerCols.length; i++) {
 
-    else {
-      let inputSpace = document.createElement("input");
-      inputSpace.setAttribute("id", "a" + i.toString())
-      node.appendChild(inputSpace);
-      document.getElementById("questionList").appendChild(node);
-    }
+    node = document.createElement("h4");
+
+    var question = document.createElement("text");
+    question.setAttribute("id", questionPos.toString());
+    question.innerHTML = obj.answerCols[i] + ": "
+    node.appendChild(question);
+    document.getElementById("questionList").appendChild(node);
+
+    let inputSpace = document.createElement("input");
+    inputSpace.setAttribute("id", "a" + i.toString())
+    node.appendChild(inputSpace);
+    document.getElementById("questionList").appendChild(node);
   }
 }
 
@@ -37,7 +37,7 @@ function checkAnswer() {
   let result = true;
   let answerList = []
 
-  for (let i=1; i<obj.columns.length; i++) {
+  for (let i=0; i<obj.columns.length; i++) {
 
     answerList.push(document.getElementById("a" + i.toString()).value);
 

@@ -1,6 +1,6 @@
 {
   "title" : "HTN Dosage List",
-  "rows" : 30,
+  "rows" : 3,
   "columns" : [ "Generic", "Brand", "Dose (mg)", "Max Dose (mg)" ],
   "questions" : [ {
     "qText" : "Chlorthalidone",

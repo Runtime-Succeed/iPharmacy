@@ -23,6 +23,7 @@ import com.example.iPharmacy.controllers.ReadFileController;
 import com.example.iPharmacy.data.QuestionSet;
 import com.example.iPharmacy.database.QuestionSetRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.*;
 
 @WebMvcTest(DBApplicationController.class)
 @WithMockUser
@@ -88,6 +89,7 @@ public class IPharmacyApplicationTests {
 		Assertions.assertEquals(false,test.isCopy(myfile));
 
 	}
+
 	@Test
 	public void test2() throws IOException {
 		File myfile = new File("src/main/resources/words2.txt");

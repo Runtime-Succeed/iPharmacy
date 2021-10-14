@@ -45,7 +45,7 @@ public class DBApplicationController {
 	//manual upload
 	//eventually change to POST, GET for testing
 	@GetMapping("/example/upload")
-	public void uploadFileData() throws IOException {
+	public void uploadFileData() {
 		repository.insert(exampleData());
 	}
 	

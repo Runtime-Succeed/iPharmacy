@@ -29,7 +29,7 @@ public class CsvToJson {
         String splitBy = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
         int numRows = countRows();
         JSONObject jsonObject = new JSONObject();
-        BufferedReader firstLine = new BufferedReader(new FileReader(filePath, StandardCharsets.UTF_8));
+        BufferedReader firstLine = new BufferedReader(new FileReader(filePath));
         line = firstLine.readLine();
         firstLine.close();
         String[] firstRow = line.split(splitBy);

@@ -1,4 +1,4 @@
-package com.example.iPharmacy;
+package com.example.iPharmacy.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

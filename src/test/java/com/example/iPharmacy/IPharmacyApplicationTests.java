@@ -17,9 +17,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.example.iPharmacy.controllers.DBApplicationController;
+import com.example.iPharmacy.controllers.HelloController;
+import com.example.iPharmacy.controllers.ReadFileController;
 import com.example.iPharmacy.data.QuestionSet;
-import com.example.iPharmacy.data.testDocument;
-import com.example.iPharmacy.database.DBApplicationController;
 import com.example.iPharmacy.database.QuestionSetRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -48,12 +49,12 @@ public class IPharmacyApplicationTests {
 				qs.getAnswerCols());
 	}
 
-	@Test
+	/*@Test
 	public void documentTest(){
 		testDocument test = new testDocument("C:\\Users\\Jay\\Downloads\\HTN_Dosage_List.csv");
 		int size = test.questions.size();
 		Assert.assertEquals(30, size);
-	}
+	}*/
 
 	@Test
 	public void contextLoads() {

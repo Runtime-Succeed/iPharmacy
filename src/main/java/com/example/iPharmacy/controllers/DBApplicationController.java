@@ -1,5 +1,6 @@
-package com.example.iPharmacy.database;
+package com.example.iPharmacy.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.iPharmacy.data.Question;
 import com.example.iPharmacy.data.QuestionSet;
+import com.example.iPharmacy.database.QuestionSetRepository;
 
 @RestController
 public class DBApplicationController {
@@ -43,7 +45,7 @@ public class DBApplicationController {
 	//manual upload
 	//eventually change to POST, GET for testing
 	@GetMapping("/example/upload")
-	public void uploadFileData() {
+	public void uploadFileData() throws IOException {
 		repository.insert(exampleData());
 	}
 	

@@ -1,4 +1,4 @@
-package com.example.iPharmacy;
+package com.example.iPharmacy.controllers;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;

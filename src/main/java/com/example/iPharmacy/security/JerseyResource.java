@@ -1,4 +1,4 @@
-package com.example.iPharmacy;
+package com.example.iPharmacy.security;
 
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;

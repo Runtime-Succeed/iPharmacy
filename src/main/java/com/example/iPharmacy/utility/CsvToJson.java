@@ -1,23 +1,35 @@
-package com.example.iPharmacy.database;
-import java.util.*;
-import java.io.*;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
+package com.example.iPharmacy.utility;
 
-public class csvToJson {
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.example.iPharmacy.data.QuestionSet;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class CsvToJson {
+	
     private String filePath;
     private String fileName;
-    public csvToJson(String aFilePath, String aFileName){
+    
+    public CsvToJson(String aFilePath, String aFileName){
         filePath = aFilePath;
         fileName = aFileName;
     }
 
-    public void convertFile() throws IOException{
+    public QuestionSet convertFile() throws IOException{
         String line = "";
         String splitBy = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
-        int numRows = countRows()-1;
+        int numRows = countRows();
         JSONObject jsonObject = new JSONObject();
-        BufferedReader firstLine = new BufferedReader(new FileReader(filePath));
+        BufferedReader firstLine = new BufferedReader(new FileReader(filePath, StandardCharsets.UTF_8));
         line = firstLine.readLine();
         firstLine.close();
         String[] firstRow = line.split(splitBy);
@@ -56,14 +68,7 @@ public class csvToJson {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            FileWriter file = new FileWriter("C:\\Users\\Jay\\Desktop\\"+fileName+".json");
-            file.write(jsonObject.toJSONString());
-            file.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        return new ObjectMapper().readValue(jsonObject.toString(), QuestionSet.class);
     }
 
     public int countRows() throws IOException {
@@ -89,5 +94,11 @@ public class csvToJson {
             is.close();
         }
         return -1;
+    }
+    
+    public static void main(String[] args) throws IOException {
+    	CsvToJson c = new CsvToJson("PATH","FILE_NAME");
+    	c.convertFile();
+    			
     }
 }

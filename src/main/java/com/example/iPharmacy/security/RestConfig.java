@@ -1,4 +1,4 @@
-package com.example.iPharmacy;
+package com.example.iPharmacy.security;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletProperties;

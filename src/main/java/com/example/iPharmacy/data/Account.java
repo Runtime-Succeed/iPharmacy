@@ -1,4 +1,4 @@
-package com.example.iPharmacy;
+package com.example.iPharmacy.data;
 
 //for A3
 public class Account {

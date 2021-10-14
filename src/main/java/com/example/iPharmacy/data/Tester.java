@@ -15,6 +15,7 @@ public class Tester {
 		
 		Tester t = new Tester();
 		t.example();
+
 	}
 	
 	public void example() throws JsonProcessingException {

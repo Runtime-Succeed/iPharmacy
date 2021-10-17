@@ -12,27 +12,28 @@
     <h1 class="pb-2 border-bottom" id="title">Title</h1>
     <div class="row g-4 py-5 row-cols-1">
 
-<div>
-    <div id="questionList">
-    </div>
-    <br/>
-    <button class="btn btn-primary" onclick="showQuestion(--currPos)">
-        Prev
-    </button>
+        <div>
+            <h5 id="questionNumber"> </h5>
+            <div id="questionList">
+            </div>
+            <br/>
+            <button class="btn btn-primary" onclick="showQuestion(--currPos)">
+                Prev
+            </button>
 
-    <button class="btn btn-primary" onclick="showQuestion(++currPos)">
-        Next
-    </button>
+            <button class="btn btn-primary" onclick="showQuestion(++currPos)">
+                Next
+            </button>
 
-    <button class="btn btn-success" onclick="checkAnswer()">
-        Check answer
-    </button>
+            <button class="btn btn-success" onclick="checkAnswer()">
+                Check answer
+            </button>
 
-    <button class="btn btn-warning" id="answerStatus" onclick="showAnswer()">
-        Show Answer
-    </button>
-    <div id="result"></div>
-</div>
+            <button class="btn btn-warning" id="answerStatus" onclick="showAnswer()">
+                Show Answer
+            </button>
+            <div id="result"></div>
+        </div>
 
     </div>
 </div>

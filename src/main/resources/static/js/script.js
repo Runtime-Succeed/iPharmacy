@@ -48,7 +48,8 @@ async function showQuestion(questionPos) {
 
   // ./json/HTN_Dosage_List (3).json
   // /data/htn-dosage-list
-   await fetch("./json/HTN_alternative.json")
+  // ./json/HTN_alternative.json
+   await fetch("./json/HTN_Dosage_List (3).json")
       .then(res => res.json())
       .then(data => obj = data)
   //.then(() => console.log(obj))  // don't delete this line
@@ -60,6 +61,11 @@ async function showQuestion(questionPos) {
     currPos = obj.rows - 1;
   else
     currPos = questionPos;
+
+  var getButton = document.getElementById("answerStatus");
+  if (getButton.innerText === "Hide Answer")
+    getButton.innerText = "Show Answer";
+
 
   // Remove the previous information, be ready to load new question
   var div = document.getElementById("questionList");

@@ -1,19 +1,76 @@
 var currPos = 0;
 var obj;
 
+function showAnswer() {
+  var getButton = document.getElementById("answerStatus");
+  var status = getButton.innerText;
+
+  if (status === "Show Answer") {
+    getButton.innerText = "Hide Answer";
+    for (let i=0; i<obj.answerCols.length; i++) {
+      var idName = 'a' + i.toString();
+      var question = obj.answerCols[i];
+      var inputSpace = document.getElementById(idName);
+      var answerSize = obj.questions[currPos].answers[question].length;
+      var answer = '';
+      if (answerSize === 1) {
+        answer = obj.questions[currPos].answers[question][0];
+      }
+
+      else {
+        for (let j=0; j<answerSize; j++) {
+          answer += obj.questions[currPos].answers[question][j];
+          if (j !== answerSize-1)
+            answer += ", ";
+        }
+      }
+
+      if (answer !== "-1")
+        inputSpace.setAttribute("placeholder", answer);
+    }
+  }
+
+  else {
+    getButton.innerText = "Show Answer";
+    for (let i=0; i<obj.answerCols.length; i++) {
+      idName = 'a' + i.toString();
+      question = obj.answerCols[i];
+      inputSpace = document.getElementById(idName);
+      answerSize = obj.questions[currPos].answers[question].length;
+      answer = obj.questions[currPos].answers[question][0];
+      if (answer !== "-1")
+        inputSpace.setAttribute("placeholder", '');
+    }
+  }
+}
+
 async function showQuestion(questionPos) {
-  // await fetch("./json/HTN_Dosage_List (3).json")
-  await fetch("/data/htn-dosage-list")
+
+  // ./json/HTN_Dosage_List (3).json
+  // /data/htn-dosage-list
+   await fetch("./json/HTN_alternative.json")
       .then(res => res.json())
       .then(data => obj = data)
   //.then(() => console.log(obj))  // don't delete this line
 
-  currPos = questionPos;
+  // Make sure the currPos within the range
+  if (questionPos < 0)
+    currPos = 0;
+  else if (questionPos > obj.rows-1)
+    currPos = obj.rows - 1;
+  else
+    currPos = questionPos;
+
+  // Remove the previous information, be ready to load new question
+  var div = document.getElementById("questionList");
+  div.innerHTML = '';
+
+  // Start loading new question data
   document.title = obj.title;
   document.getElementById("title").innerHTML = obj.title;
 
   let node = document.createElement("h4");
-  node.innerHTML = obj.questionAsk + ": " + obj.questions[questionPos].questionText;
+  node.innerHTML = obj.questionAsk + ": " + obj.questions[currPos].questionText;
   document.getElementById("questionList").appendChild(node);
 
   for (let i=0; i<obj.answerCols.length; i++) {
@@ -21,15 +78,20 @@ async function showQuestion(questionPos) {
     node = document.createElement("h4");
 
     var question = document.createElement("text");
-    question.setAttribute("id", questionPos.toString());
+    question.setAttribute("id", currPos.toString());
     question.innerHTML = obj.answerCols[i] + ": "
     node.appendChild(question);
     document.getElementById("questionList").appendChild(node);
 
-    let inputSpace = document.createElement("input");
-    inputSpace.setAttribute("id", "a" + i.toString())
-    node.appendChild(inputSpace);
-    document.getElementById("questionList").appendChild(node);
+    var q = obj.answerCols[i];
+    var a = obj.questions[currPos].answers[q][0];
+
+    if (a !== "-1") {
+      let inputSpace = document.createElement("input");
+      inputSpace.setAttribute("id", "a" + i.toString())
+      node.appendChild(inputSpace);
+      document.getElementById("questionList").appendChild(node);
+    }
   }
 }
 
@@ -119,31 +181,3 @@ function populateTable() {
     }
   });
 }
-
-// let obj2 = JSON.parse('{\n' +
-//     '  "title" : "HTN Dosage List",\n' +
-//     '  "rows" : 30,\n' +
-//     '  "columns" : [ "Generic", "Brand", "Dose (mg)", "Max Dose (mg)" ],\n' +
-//     '  "questions" : [ {\n' +
-//     '    "qText" : "Chlorthalidone",\n' +
-//     '    "answers" : {\n' +
-//     '      "Brand" : [ "Thalitone" ],\n' +
-//     '      "Dose (mg)" : [ "25 QD" ],\n' +
-//     '      "Max Dose (mg)" : [ "100 QD" ]\n' +
-//     '    }\n' +
-//     '  }, {\n' +
-//     '    "qText" : "Lisinopril",\n' +
-//     '    "answers" : {\n' +
-//     '      "Brand" : [ "Prinivil", "Zestril", "Qbrelis" ],\n' +
-//     '      "Dose (mg)" : [ "10-40 QD" ],\n' +
-//     '      "Max Dose (mg)" : [ "40 QD" ]\n' +
-//     '    }\n' +
-//     '  }, {\n' +
-//     '    "qText" : "Hydralazine",\n' +
-//     '    "answers" : {\n' +
-//     '      "Brand" : [ "-1" ],\n' +
-//     '      "Dose (mg)" : [ "10-50 TID-QID" ],\n' +
-//     '      "Max Dose (mg)" : [ "200 QD" ]\n' +
-//     '    }\n' +
-//     '  } ]\n' +
-//     '}');

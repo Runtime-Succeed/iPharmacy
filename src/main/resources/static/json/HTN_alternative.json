@@ -1,6 +1,6 @@
 {
   "title" : "HTN Dosage List",
-  "rows" : 30,
+  "rows" : 3,
   "questionAsk" : "Generic",
   "answerCols" : [ "Brand", "Dose (mg)", "Max Dose (mg)" ],
   "questions" : [ {
@@ -13,7 +13,7 @@
   }, {
     "questionText" : "Lisinopril",
     "answers" : {
-      "Brand" : [ "Prinivil", "Zestril", "Qbrelis" ],
+      "Brand" : [ "Prinivil", "Zestril", "Qbrelis"],
       "Dose (mg)" : [ "10-40 QD" ],
       "Max Dose (mg)" : [ "40 QD" ]
     }

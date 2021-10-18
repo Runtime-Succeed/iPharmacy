@@ -15,10 +15,10 @@ import com.example.iPharmacy.data.QuestionSet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CsvToJson {
-	
+
     private String filePath;
     private String fileName;
-    
+
     public CsvToJson(String aFilePath, String aFileName){
         filePath = aFilePath;
         fileName = aFileName;
@@ -95,10 +95,10 @@ public class CsvToJson {
         }
         return -1;
     }
-    
+
     public static void main(String[] args) throws IOException {
-    	CsvToJson c = new CsvToJson("PATH","FILE_NAME");
-    	c.convertFile();
-    			
+        CsvToJson c = new CsvToJson("PATH","FILE_NAME");
+        c.convertFile();
+
     }
 }

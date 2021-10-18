@@ -1,11 +1,8 @@
 package com.example.iPharmacy;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +15,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.example.iPharmacy.controllers.DBApplicationController;
-import com.example.iPharmacy.controllers.HelloController;
-import com.example.iPharmacy.controllers.ReadFileController;
 import com.example.iPharmacy.data.QuestionSet;
 import com.example.iPharmacy.database.QuestionSetRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.*;
 
 @WebMvcTest(DBApplicationController.class)
 @WithMockUser
@@ -61,7 +55,7 @@ public class IPharmacyApplicationTests {
 	public void contextLoads() {
 	}
 
-	@Test
+	/*@Test
 	public void checkTest1()  {
 		HelloController h = new HelloController();
 		Boolean b = h.checkAnswer("thalitdone");
@@ -97,5 +91,5 @@ public class IPharmacyApplicationTests {
 		test.isCopy(myfile);
 		Assertions.assertEquals(true,test.isCopy(myfile));
 
-	}
+	}*/
 }

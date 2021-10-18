@@ -68,6 +68,7 @@ public class CsvToJson {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(numRows);
         return new ObjectMapper().readValue(jsonObject.toString(), QuestionSet.class);
     }
 
@@ -97,8 +98,9 @@ public class CsvToJson {
     }
     
     public static void main(String[] args) throws IOException {
-    	CsvToJson c = new CsvToJson("PATH","FILE_NAME");
-    	c.convertFile();
+    	CsvToJson c = new CsvToJson("C:/Users/az463/Desktop/HTN_Dosage_List.csv","NAME");
+    	QuestionSet s = c.convertFile();
+    	System.out.println(s);
     			
     }
 }

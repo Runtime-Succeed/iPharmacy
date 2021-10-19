@@ -1,5 +1,0 @@
-Hello,
-this is a test file that is found in:
-src/main/resources/words2.txt
-This file is read with commons io
-

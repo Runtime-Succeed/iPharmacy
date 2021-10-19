@@ -6,7 +6,7 @@ async function showQuestion(questionPos) {
   // ./json/HTN_Dosage_List (3).json
   // /data/htn-dosage-list
   // ./json/HTN_alternative.json
-  await fetch("./json/HTN_Dosage_List (3).json")
+  await fetch("/data/htn-dosage-list")
       .then(res => res.json())
       .then(data => obj = data)
   //.then(() => console.log(obj))  // for debug, don't delete

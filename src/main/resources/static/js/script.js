@@ -3,6 +3,9 @@ var obj;
 
 async function showQuestion(questionPos) {
 
+  // ./json/HTN_Dosage_List (3).json
+  // /data/htn-dosage-list
+  // ./json/HTN_alternative.json
   await fetch("/data/htn-dosage-list")
       .then(res => res.json())
       .then(data => obj = data)

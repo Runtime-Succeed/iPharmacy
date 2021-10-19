@@ -44,52 +44,8 @@ public class IPharmacyApplicationTests {
 				qs.getAnswerCols());
 	}
 
-	/*@Test
-	public void documentTest(){
-		testDocument test = new testDocument("C:\\Users\\Jay\\Downloads\\HTN_Dosage_List.csv");
-		int size = test.questions.size();
-		Assert.assertEquals(30, size);
-	}*/
-
 	@Test
 	public void contextLoads() {
 	}
 
-	/*@Test
-	public void checkTest1()  {
-		HelloController h = new HelloController();
-		Boolean b = h.checkAnswer("thalitdone");
-		Assertions.assertEquals(true,b);
-	}
-
-	@Test
-	public void checkTest2()  {
-		HelloController h = new HelloController();
-		Boolean b = h.checkAnswer("ThalitdonE ");
-		Assertions.assertEquals(true,b);
-	}
-
-	@Test
-	public void checkTest3()  {
-		HelloController h = new HelloController();
-		Boolean b = h.checkAnswer("THALITDONEe");
-		Assertions.assertEquals(false,b);
-	}
-
-	public void test1() throws IOException {
-		File myfile = new File("src/main/resources/words2.txt");
-		ReadFileController test= new ReadFileController();
-		test.isCopy(myfile);
-		Assertions.assertEquals(false,test.isCopy(myfile));
-
-	}
-
-	@Test
-	public void test2() throws IOException {
-		File myfile = new File("src/main/resources/words2.txt");
-		ReadFileController test= new ReadFileController();
-		test.isCopy(myfile);
-		Assertions.assertEquals(true,test.isCopy(myfile));
-
-	}*/
 }

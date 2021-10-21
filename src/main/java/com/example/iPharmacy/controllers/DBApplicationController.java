@@ -3,10 +3,14 @@ package com.example.iPharmacy.controllers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,10 +40,21 @@ public class DBApplicationController {
 	}
 	
 	//test endpoint for now
-	@GetMapping("/data/htn-dosage-list")
+	@GetMapping(value = "/data/htn-dosage-list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public QuestionSet getHtn() {
 		System.out.println("/data/htn-dosage-list reached");
 		return repository.findById("HTN Dosage List").get();
+	}
+	
+	@GetMapping(value = "/data/titles", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getTitles() {
+		System.out.println("/data/titles reached");
+		List<QuestionSet> qs = repository.findAll();
+		List<String> titles = new LinkedList<>();
+		for(QuestionSet qset : qs)
+			titles.add(qset.getTitle());
+		
+		return new JSONObject().put("titles", new JSONArray(titles)).toString();	//org.json, not org.json.simple		
 	}
 	
 	//need front-end connection to test

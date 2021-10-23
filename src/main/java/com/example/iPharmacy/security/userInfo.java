@@ -36,9 +36,4 @@ public class userInfo {
             throw new RuntimeException( e );
         }
     }
-
-    public static void main(String[] args) throws UnsupportedEncodingException{
-        userInfo test =  new userInfo("gordan402", "password");
-        System.out.println(test.password);
-    }
 }

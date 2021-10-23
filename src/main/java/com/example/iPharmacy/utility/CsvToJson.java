@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.io.FileWriter;   // Import the FileWriter class
+import java.io.IOException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -97,8 +99,16 @@ public class CsvToJson {
     }
 
     public static void main(String[] args) throws IOException {
-        CsvToJson c = new CsvToJson("PATH","FILE_NAME");
+        CsvToJson c = new CsvToJson("C:\\Users\\Jay\\Downloads\\HTN_Dosage_List.csv","HTN_Dosage_List");
         c.convertFile();
-
+        try {
+            FileWriter myWriter = new FileWriter(c.fileName+".json");
+            myWriter.write(c.convertFile().toString());
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }

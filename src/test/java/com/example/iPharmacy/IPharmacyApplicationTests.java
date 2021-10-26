@@ -14,12 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.example.iPharmacy.controllers.DBApplicationController;
+import com.example.iPharmacy.controllers.TestingController;
 import com.example.iPharmacy.data.QuestionSet;
 import com.example.iPharmacy.database.QuestionSetRepository;
+import com.example.iPharmacy.database.UserInfoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(DBApplicationController.class)
+@WebMvcTest(TestingController.class)
 @WithMockUser
 public class IPharmacyApplicationTests {
 	
@@ -27,7 +28,10 @@ public class IPharmacyApplicationTests {
 	private MockMvc mvc;
 	
 	@MockBean
-	private QuestionSetRepository repo;
+	private QuestionSetRepository qsRepo;
+	
+	@MockBean
+	private UserInfoRepository userRepo;
 	
 	@Test
 	public void testGetExampleQuestionSet() throws Exception {

@@ -15,6 +15,9 @@ import com.example.iPharmacy.data.QuestionSet;
 import com.example.iPharmacy.database.QuestionSetRepository;
 import com.example.iPharmacy.database.UserInfoRepository;
 import com.example.iPharmacy.security.UserInfo;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Main controller for retrieving data
@@ -38,14 +41,10 @@ public class DataController {
 	}
 	
 	@GetMapping("/titles")
-	public String getTitles() {
-		System.out.println("/data/titles reached");
-		List<QuestionSet> qs = qsRepo.findAll();
-		List<String> titles = new LinkedList<>();
-		for(QuestionSet qset : qs)
-			titles.add(qset.getTitle());
-		
-		return new JSONObject().put("titles", new JSONArray(titles)).toString();	//org.json, not org.json.simple		
+	public String getTitles() throws JsonProcessingException {
+		List<QuestionSet> qs = qsRepo.findAllTitles();
+		ObjectMapper obj = new ObjectMapper().setSerializationInclusion(Include.NON_DEFAULT);
+		return obj.writeValueAsString(qs);
 	}
 	
 	@GetMapping("/users")

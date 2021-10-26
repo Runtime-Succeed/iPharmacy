@@ -61,7 +61,7 @@ public class QuestionSet {
 	}
 
 	public List<String> getAnswerCols() {
-		return new ArrayList<>(answerCols);
+		return answerCols == null ? null : new ArrayList<>(answerCols);
 	}
 
 	public void setAnswerCols(List<String> answerCols) {
@@ -69,7 +69,7 @@ public class QuestionSet {
 	}
 
 	public List<Question> getQuestions() {
-		return new ArrayList<>(questions);
+		return questions == null ? null : new ArrayList<>(questions);
 	}
 
 	public void setQuestions(List<Question> questions) {

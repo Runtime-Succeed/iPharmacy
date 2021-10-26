@@ -31,7 +31,7 @@ public class Question {
 	}
 
 	public Map<String, List<String>> getAnswers() {
-		return new LinkedHashMap<>(answers);
+		return answers == null ? null : new LinkedHashMap<>(answers);
 	}
 
 	public void setAnswers(Map<String, List<String>> answers) {

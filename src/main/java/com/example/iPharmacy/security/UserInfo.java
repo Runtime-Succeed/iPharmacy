@@ -1,5 +1,8 @@
 package com.example.iPharmacy.security;
+
 import org.apache.commons.codec.binary.Hex;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.example.iPharmacy.data.QuestionSet;
 
@@ -13,46 +16,89 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Document
 public class UserInfo {
+
+	@Id
+	private String id;
+
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String username;
+	private String password;
+	private String salt;
+	private List<QuestionSet> questionSets;
 	
-    private String userName;
-    private String password;
-    private String salt;
-    private List<QuestionSet> questionSets;
-    private static final int ITERATIONS = 10000;
-    private static final int KEYLENGTH = 512;
-    
-    /**
-     * 
-     * @param aUserName
-     * @param aPassword
-     * @throws UnsupportedEncodingException
-     */
-    public UserInfo(String userName, String password) throws UnsupportedEncodingException {
-    	
-    	//initialize fields
-        this.userName = userName;
-        this.password = password;
-        Random rand = new Random();
-        salt = Integer.toString(rand.nextInt());
-        questionSets = new ArrayList<>();
-        
-        //hash password
-        char[] passwordChars = password.toCharArray();
-        byte[] saltBytes = salt.getBytes();
-        byte[] hashedBytes = hashPassword(passwordChars, saltBytes, ITERATIONS, KEYLENGTH);
-        this.password = Hex.encodeHexString(hashedBytes);
-    }
+	private static final int ITERATIONS = 10000;
+	private static final int KEYLENGTH = 512;
 
-    public String getUserName() {
-		return userName;
+	/**
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param username
+	 * @param password
+	 * @throws UnsupportedEncodingException
+	 */
+	public UserInfo(String firstName, String lastName, String email, String username, String password)
+			throws UnsupportedEncodingException {
+
+		//initialize fields
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		Random rand = new Random();
+		this.salt = Integer.toString(rand.nextInt());
+		questionSets = new ArrayList<>();
+
+		// hash password
+		char[] passwordChars = password.toCharArray();
+		byte[] saltBytes = salt.getBytes();
+		byte[] hashedBytes = hashPassword(passwordChars, saltBytes);
+		this.password = Hex.encodeHexString(hashedBytes);
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public String getId() {
+		return id;
 	}
 
-	/*public String getPassword() {
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUserName(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
 		return password;
 	}
 
@@ -62,7 +108,11 @@ public class UserInfo {
 
 	public String getSalt() {
 		return salt;
-	} */
+	}
+	
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
 	public List<QuestionSet> getQuestionSets() {
 		return questionSets;
@@ -72,18 +122,16 @@ public class UserInfo {
 		questionSets.add(toAdd);
 	}
 
-	private byte[] hashPassword(final char[] password, final byte[] salt, final int iterations, final int keyLength ) {
-        try {
-            SecretKeyFactory skf = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );
-            PBEKeySpec spec = new PBEKeySpec( password, salt, iterations, keyLength );
-            SecretKey key = skf.generateSecret(spec);
-            byte[] res = key.getEncoded();
-            return res;
-        } catch ( NoSuchAlgorithmException | InvalidKeySpecException e ) {
-            throw new RuntimeException( e );
-        }
-    }
-    
-    
-    
+	public static byte[] hashPassword(final char[] password, final byte[] salt) {
+		try {
+			SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+			PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEYLENGTH);
+			SecretKey key = skf.generateSecret(spec);
+			byte[] res = key.getEncoded();
+			return res;
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

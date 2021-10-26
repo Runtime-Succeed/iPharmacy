@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.springframework.data.annotation.Id;
-
 public class QuestionSet {
 	
-	//unsure about if ID should be auto generated or set to title
-	@Id
 	private String title;
 	private int rows;
 	private String questionAsk;

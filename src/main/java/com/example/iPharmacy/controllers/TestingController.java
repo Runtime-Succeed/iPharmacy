@@ -45,9 +45,12 @@ public class TestingController {
 	// Manual Upload
 	@GetMapping("/manual/uploadUser")
 	public void uploadUser() throws IOException {
-		UserInfo newUser = new UserInfo("user1", "password1");
-		CsvToJson c = new CsvToJson("C:\\Users\\az463\\Desktop\\HTN_Dosage_List.csv", "HTN_Dosage_List");
+		UserInfo newUser = new UserInfo("Bob", "Smith", "email@email.com", "username1", "password1");
+		CsvToJson c = new CsvToJson("C:\\Users\\az463\\Desktop\\HTN_Dosage_List.csv", "HTN Dosage List");
 		QuestionSet qs = c.convertFile();
+		newUser.addQuestionSet(qs);
+		c = new CsvToJson("C:\\Users\\az463\\Desktop\\ABX.csv", "ABX");
+		qs = c.convertFile();
 		newUser.addQuestionSet(qs);
 		userRepo.insert(newUser);
 	}

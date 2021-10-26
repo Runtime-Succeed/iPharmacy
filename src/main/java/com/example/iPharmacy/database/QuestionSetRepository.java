@@ -12,6 +12,8 @@ import com.example.iPharmacy.data.QuestionSet;
 public interface QuestionSetRepository extends MongoRepository<QuestionSet, String>{
 
 	//1 = include, 0 = exclude
-	@Query(value = "{}", fields = "{_id : 1}")
+	@Query(value = "{}", fields = "{title : 1}")
 	List<QuestionSet> findAllTitles();
+
+	QuestionSet findFirstByTitle(String title);
 }

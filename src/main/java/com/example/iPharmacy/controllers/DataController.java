@@ -34,7 +34,7 @@ public class DataController {
 	
 	@GetMapping("/htn-dosage-list")
 	public QuestionSet getHtn() {
-		return qsRepo.findById("HTN Dosage List").get();
+		return qsRepo.findFirstByTitle("HTN Dosage List");
 	}
 	
 	@GetMapping("/titles")

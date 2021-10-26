@@ -54,6 +54,17 @@ public class TestingController {
 		newUser.addQuestionSet(qs);
 		userRepo.insert(newUser);
 	}
+	
+	// Manual Upload Question Sets
+	@GetMapping("/manual/uploadQuestionSets")
+	public void uploadQuestionSets() throws IOException {
+		CsvToJson c = new CsvToJson("C:\\Users\\az463\\Desktop\\HTN_Dosage_List.csv", "HTN Dosage List");
+		QuestionSet qs = c.convertFile();
+		qsRepo.insert(qs);
+		c = new CsvToJson("C:\\Users\\az463\\Desktop\\ABX.csv", "ABX");
+		qs = c.convertFile();
+		qsRepo.insert(qs);
+	}
 
 	// used for unit testing
 	@GetMapping("/example/questionSet")

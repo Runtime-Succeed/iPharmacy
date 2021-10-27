@@ -29,9 +29,10 @@ public class UserInfo {
 	private String password;
 	private String salt;
 	private List<QuestionSet> questionSets;
-	
+
 	private static final int ITERATIONS = 10000;
 	private static final int KEYLENGTH = 512;
+	private static final String HASHALGORITHM = "PBKDF2WithHmacSHA512";
 
 	/**
 	 * 
@@ -45,21 +46,12 @@ public class UserInfo {
 	public UserInfo(String firstName, String lastName, String email, String username, String password)
 			throws UnsupportedEncodingException {
 
-		//initialize fields
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.username = username;
-		this.password = password;
-		Random rand = new Random();
-		this.salt = Integer.toString(rand.nextInt());
 		questionSets = new ArrayList<>();
-
-		// hash password
-		char[] passwordChars = password.toCharArray();
-		byte[] saltBytes = salt.getBytes();
-		byte[] hashedBytes = hashPassword(passwordChars, saltBytes);
-		this.password = Hex.encodeHexString(hashedBytes);
+		setPassword(password);
 	}
 
 	public String getId() {
@@ -103,19 +95,22 @@ public class UserInfo {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		// generate salt value
+		generateSalt();
+
+		// hash password
+		char[] passwordChars = password.toCharArray();
+		byte[] saltBytes = salt.getBytes();
+		byte[] hashedBytes = hashPassword(passwordChars, saltBytes);
+		this.password = Hex.encodeHexString(hashedBytes);
 	}
 
 	public String getSalt() {
 		return salt;
 	}
-	
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
 
 	public List<QuestionSet> getQuestionSets() {
-		return questionSets;
+		return questionSets == null ? null : new ArrayList<>(questionSets);
 	}
 
 	public void addQuestionSet(QuestionSet toAdd) {
@@ -124,7 +119,7 @@ public class UserInfo {
 
 	public static byte[] hashPassword(final char[] password, final byte[] salt) {
 		try {
-			SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+			SecretKeyFactory skf = SecretKeyFactory.getInstance(HASHALGORITHM);
 			PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEYLENGTH);
 			SecretKey key = skf.generateSecret(spec);
 			byte[] res = key.getEncoded();
@@ -132,6 +127,10 @@ public class UserInfo {
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private void generateSalt() {
+		this.salt = Integer.toString(new Random().nextInt());
 	}
 
 }

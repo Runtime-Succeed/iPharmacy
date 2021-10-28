@@ -11,5 +11,8 @@ public interface UserInfoRepository extends MongoRepository<UserInfo, String> {
 	
 	@Query(value = "{username: ?0}", fields = "{_id: 0, password: 1, salt: 1}")
 	String findPasswordAndSaltByUsername(String username);
+	
+	@Query(value = "{username: ?0}", exists = true)
+	boolean doesUsernameExist(String username);
 
 }

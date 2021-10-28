@@ -32,7 +32,7 @@ public class TestingController {
 		this.qsRepo = qsRepo;
 		this.userRepo = userRepo;
 	}
-
+	
 	@GetMapping(value = "/data/text", produces = "text/plain")
 	public String getData() {
 		String s = "";

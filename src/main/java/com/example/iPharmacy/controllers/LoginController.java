@@ -18,16 +18,23 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class LoginController {
 	
 	private UserInfoRepository userRepo;
-
+	private static ObjectMapper mapper;
+	
 	@Autowired
-	public LoginController(UserInfoRepository userRepo) {
+	public LoginController(UserInfoRepository userRepo, ObjectMapper mapper) {
 		this.userRepo = userRepo;
+		LoginController.mapper = mapper;
 	}
 	
-	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void signUp(@RequestBody UserInfo newUser) {
-		//probably should ensure username is unique before inserting
-		userRepo.insert(newUser);
+	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ObjectNode signUp(@RequestBody UserInfo newUser) {
+		System.out.println("signup reached");
+		ObjectNode response = mapper.createObjectNode();
+		if (!userRepo.doesUsernameExist(newUser.getUsername())) {
+			userRepo.insert(newUser);
+			return response.put("success", true);
+		}
+		return response.put("success", false);
 	}
 	
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -40,7 +47,7 @@ public class LoginController {
 		if(storedUser != null) {
 			
 			String inputPassword = body.get("password").asText();
-			JsonNode obj = new ObjectMapper().readTree(storedUser);
+			JsonNode obj = mapper.readTree(storedUser);
 			String storedSalt = obj.get("salt").asText();
 			String storedPassword = obj.get("password").asText();
 			

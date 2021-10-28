@@ -34,15 +34,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
     var button = document.getElementById("sub");
     button.onclick = async(e) => {
         data = {
-             "firstname": document.getElementById('firstName').value,
-             "lastname": document.getElementById('lastName').value,
+             "firstName": document.getElementById('firstName').value,
+             "lastName": document.getElementById('lastName').value,
              "username": document.getElementById('username').value,
              "email": document.getElementById('email').value,
              "password": document.getElementById('pswd').value
         }
         console.log(data);
         if(allValid()){
-            let response = await fetch('localhost:8080/signup', {
+            let response = await fetch('/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -26,6 +26,7 @@ public class LoginController {
 	
 	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void signUp(@RequestBody UserInfo newUser) {
+		System.out.println("page opened");
 		//probably should ensure username is unique before inserting
 		userRepo.insert(newUser);
 	}

@@ -33,12 +33,13 @@ function allValid() {
 function handleSubmit() {
     if(allValid()) {
         data = {
-             "firstname": document.getElementById('firstName').value,
-             "lastname": document.getElementById('lastName').value,
+             "firstName": document.getElementById('firstName').value,
+             "lastName": document.getElementById('lastName').value,
              "username": document.getElementById('username').value,
              "email": document.getElementById('email').value,
              "password": document.getElementById('pswd').value
         }
+<<<<<<< HEAD
         let response = fetch('/signup', {
             method: 'POST',
             headers: {
@@ -55,6 +56,19 @@ function handleSubmit() {
         window.onload = function() {
             const button = document.getElementByTagName('button');
             button.addEventListener('click', handleSubmit);
+=======
+        console.log(data);
+        if(allValid()){
+            let response = await fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data));
+>>>>>>> 9e94a997d6234490b52a86f931ec723f5ad9ee78
         }
     }
 }

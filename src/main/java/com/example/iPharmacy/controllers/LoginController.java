@@ -26,13 +26,6 @@ public class LoginController {
 		LoginController.mapper = mapper;
 	}
 	
-<<<<<<< HEAD
-	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void signUp(@RequestBody UserInfo newUser) {
-		System.out.println("page opened");
-		//probably should ensure username is unique before inserting
-		userRepo.insert(newUser);
-=======
 	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ObjectNode signUp(@RequestBody UserInfo newUser) {
 		System.out.println("signup reached");
@@ -42,7 +35,6 @@ public class LoginController {
 			return response.put("success", true);
 		}
 		return response.put("success", false);
->>>>>>> 9e94a997d6234490b52a86f931ec723f5ad9ee78
 	}
 	
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)

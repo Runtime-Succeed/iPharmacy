@@ -8,7 +8,7 @@ public class ViewController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "login.html";
+		return "index.html";
 	}
 
 }

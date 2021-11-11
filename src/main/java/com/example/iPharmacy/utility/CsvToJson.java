@@ -99,9 +99,9 @@ public class CsvToJson {
     }
 
     public static void main(String[] args) throws IOException {
-        CsvToJson c = new CsvToJson("C:\\Users\\Jay\\Downloads\\HTN_Dosage_List.csv","HTN_Dosage_List");
-        c.convertFile();
-        try {
+        CsvToJson c = new CsvToJson("C:\\Users\\az463\\Desktop\\HTN_Dosage_List.csv","HTN_Dosage_List");
+        System.out.println(c.convertFile());
+        /*try {
             FileWriter myWriter = new FileWriter(c.fileName+".json");
             myWriter.write(c.convertFile().toString());
             myWriter.close();
@@ -109,6 +109,6 @@ public class CsvToJson {
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
-        }
+        }*/
     }
 }

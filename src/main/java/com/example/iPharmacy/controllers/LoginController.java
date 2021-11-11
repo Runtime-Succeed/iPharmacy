@@ -37,7 +37,7 @@ public class LoginController {
 		return response.put("success", false);
 	}
 	
-	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/login2", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void login(@RequestBody ObjectNode body) throws JsonProcessingException {
 		
 		String inputUsername = body.get("username").asText();

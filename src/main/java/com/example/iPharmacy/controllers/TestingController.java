@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.iPharmacy.data.Question;
@@ -31,6 +33,11 @@ public class TestingController {
 	public TestingController(QuestionSetRepository qsRepo, UserInfoRepository userRepo) {
 		this.qsRepo = qsRepo;
 		this.userRepo = userRepo;
+	}
+	
+	@PostMapping("/login")
+	public void isLoggedIn(@RequestParam("username") String username, @RequestParam() String password) {
+		System.out.println("username: " + username + "\npassword: " + password);
 	}
 	
 	@GetMapping(value = "/data/text", produces = "text/plain")

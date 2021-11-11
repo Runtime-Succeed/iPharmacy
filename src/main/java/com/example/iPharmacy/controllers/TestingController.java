@@ -1,6 +1,5 @@
 package com.example.iPharmacy.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -15,8 +14,6 @@ import com.example.iPharmacy.data.Question;
 import com.example.iPharmacy.data.QuestionSet;
 import com.example.iPharmacy.database.QuestionSetRepository;
 import com.example.iPharmacy.database.UserInfoRepository;
-import com.example.iPharmacy.security.UserInfo;
-import com.example.iPharmacy.utility.CsvToJson;
 
 /**
  * Use this class for testing or manually editing data
@@ -43,8 +40,10 @@ public class TestingController {
 	}
 
 	// Manual Upload
+	/*
+	 * Commented to make sure it is not accidentally used
 	@GetMapping("/manual/uploadUser")
-	public void uploadUser() throws IOException {
+	public String uploadUser() throws IOException {
 		UserInfo newUser = new UserInfo("Bob", "Smith", "email@email.com", "username1", "password1");
 		CsvToJson c = new CsvToJson("C:\\Users\\az463\\Desktop\\HTN_Dosage_List.csv", "HTN Dosage List");
 		QuestionSet qs = c.convertFile();
@@ -53,18 +52,63 @@ public class TestingController {
 		qs = c.convertFile();
 		newUser.addQuestionSet(qs);
 		userRepo.insert(newUser);
-	}
+		
+		System.out.println("User uploaded manually");
+		return "User uploaded manually";
+	}*/
 	
 	// Manual Upload Question Sets
+	/*
+	 * Commented to make sure it is not accidentally used
 	@GetMapping("/manual/uploadQuestionSets")
-	public void uploadQuestionSets() throws IOException {
-		CsvToJson c = new CsvToJson("C:\\Users\\az463\\Desktop\\HTN_Dosage_List.csv", "HTN Dosage List");
-		QuestionSet qs = c.convertFile();
-		qsRepo.insert(qs);
-		c = new CsvToJson("C:\\Users\\az463\\Desktop\\ABX.csv", "ABX");
+	public String uploadQuestionSets() throws IOException {
+		
+		String basePath = "PATH_ON_COMPUTER";
+		
+		CsvToJson c = new CsvToJson(basePath + "HTN_Dosage_List.csv","HTN Dosage List");
+        QuestionSet qs = c.convertFile();
+        qsRepo.insert(qs);
+
+		c = new CsvToJson(basePath + "ABX.csv", "ABX");
 		qs = c.convertFile();
-		qsRepo.insert(qs);
-	}
+        qsRepo.insert(qs);
+		
+		c = new CsvToJson(basePath + "ABX 3.csv", "ABX3");
+		qs = c.convertFile();
+        qsRepo.insert(qs);
+        
+		c = new CsvToJson(basePath + "Asthma Drugs.csv", "Asthma Drugs");
+		qs = c.convertFile();
+        qsRepo.insert(qs);
+		
+		c = new CsvToJson(basePath + "Drug List.csv", "Drug List");
+		qs = c.convertFile();
+        qsRepo.insert(qs);
+		
+		c = new CsvToJson(basePath + "Epilepsy.csv", "Epilepsy");
+		qs = c.convertFile();
+        qsRepo.insert(qs);
+		
+		c = new CsvToJson(basePath + "Integration Block.csv", "Integration Block");
+		qs = c.convertFile();
+        qsRepo.insert(qs);
+		
+		c = new CsvToJson(basePath + "OP Drugs.csv", "OP Drugs");
+		qs = c.convertFile();
+        qsRepo.insert(qs);
+		
+		c = new CsvToJson(basePath + "Pulmonary HTN.csv", "Pulmonary HTN");
+		qs = c.convertFile();
+        qsRepo.insert(qs);
+		
+		c = new CsvToJson(basePath + "RA Drugs.csv", "RA Drugs");
+		qs = c.convertFile();
+        qsRepo.insert(qs);
+        
+        System.out.println("Data uploaded manually");
+        return "Data uploaded manually";
+
+	} */
 
 	// used for unit testing
 	@GetMapping("/example/questionSet")

@@ -35,6 +35,9 @@ public class CsvToJson {
         line = firstLine.readLine();
         firstLine.close();
         String[] firstRow = line.split(splitBy);
+        for(int i=0; i<firstRow.length; i++){
+            firstRow[i] = firstRow[i].trim();
+        }
         JSONArray answerCols = new JSONArray();
         for(int i=1; i<firstRow.length; i++){
             answerCols.add(firstRow[i]);

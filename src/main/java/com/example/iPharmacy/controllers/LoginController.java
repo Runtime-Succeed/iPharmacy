@@ -32,13 +32,13 @@ public class LoginController {
 		ObjectNode response = mapper.createObjectNode();
 		if (!userRepo.doesUsernameExist(newUser.getUsername())) {
 			userRepo.insert(newUser);
-			return response.put("success", true);
+			return response.put("signupSuccess", true);
 		}
-		return response.put("success", false);
+		return response.put("signupSuccess", false);
 	}
 	
-	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void login(@RequestBody ObjectNode body) throws JsonProcessingException {
+	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ObjectNode login(@RequestBody ObjectNode body) throws JsonProcessingException {
 		
 		String inputUsername = body.get("username").asText();
 		String storedUser = userRepo.findPasswordAndSaltByUsername(inputUsername);
@@ -49,20 +49,24 @@ public class LoginController {
 			String inputPassword = body.get("password").asText();
 			JsonNode obj = mapper.readTree(storedUser);
 			String storedSalt = obj.get("salt").asText();
-			String storedPassword = obj.get("password").asText();
 			
 			//hash user-entered password with same salt and compare result with stored password
 			String hashedInputPassword = Hex.encodeHexString(
 					UserInfo.hashPassword(inputPassword.toCharArray(), storedSalt.getBytes())
 					);
 			
+			//actual password hashed
+			String storedPassword = obj.get("password").asText();
+			
 			if(hashedInputPassword.equals(storedPassword))
+			{
 				System.out.println("Login Succeeded.");
-			else
-				System.out.println("Login Failed.");
+				return mapper.createObjectNode().put("loginSuccess", true).put("username", inputUsername);
+			}
 		}
-		else
-			System.out.println("Login Failed.");
+		
+		System.out.println("Login Failed.");
+		return mapper.createObjectNode().put("loginSuccess", false);
 		
 	}
 

@@ -23,8 +23,8 @@ function handleSubmit() {
         body: JSON.stringify(data),
     })
     .then(response => response.json())
-    .then(data => console.log(data))
-    .then(window.location.href = 'category.html');
+    .then(data => console.log(data));
+//    .then(window.location.href = 'category.html');
 
     window.onload = function() {
         const button = document.getElementById('bu');

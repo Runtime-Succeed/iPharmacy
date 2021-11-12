@@ -67,28 +67,3 @@
         document.getElementById('myModal').style.display = 'block';
     }
  }
-//
-// window.addEventListener('DOMContentLoaded', (event) => {
-//     var button = document.getElementById("sub");
-//     if(allValid()) {
-//         button.onclick = async(e) => {
-//                 data = {
-//                      "firstname": document.getElementById('firstName').value,
-//                      "lastname": document.getElementById('lastName').value,
-//                      "username": document.getElementById('username').value,
-//                      "email": document.getElementById('email').value,
-//                      "password": document.getElementById('pswd').value
-//                 }
-//                 let response = await fetch('/signup', {
-//                     method: 'POST',
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                     },
-//                     body:JSON.stringify(data),
-//                 })
-//                 .then(response => response.json())
-//                 .then(data => console.log(data))
-//                 .then(window.location.replace('login.html'));
-//         }
-//     }
-// })

@@ -57,12 +57,12 @@
 
  function convert(data) {
     var username = document.getElementById('username');
-    if(data["success"] == false){
+    if(data["signupSuccess"] == false){
         username.value = '';
         username.setAttribute("class", "form-control is-invalid");
         document.getElementById("usernameInvalid").innerHTML = "This username already exists.";
     }
-    else if (data["success"] == true){
+    else if (data["signupSuccess"] == true){
         username.setAttribute("class", "form-control is-valid");
         document.getElementById('myModal').style.display = 'block';
     }

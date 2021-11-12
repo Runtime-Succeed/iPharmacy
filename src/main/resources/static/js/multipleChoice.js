@@ -4,7 +4,7 @@ let correctIndex = 0;
 
 async function showMultipleChoice(questionPos) {
 
-    await fetch("./json/HTN_Dosage_List (3).json")
+    await fetch("/data/htn-dosage-list")
         .then(res => res.json())
         .then(data => obj = data)
 

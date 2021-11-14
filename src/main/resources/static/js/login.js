@@ -1,18 +1,9 @@
 function handleSubmit() {
     var input = document.getElementById('input').value;
     var password = document.getElementById('password').value;
-    let data = ""
-    if (input.indexOf('@') >= 0) {
-        data = {
-            "email": input,
-            "password": password
-        }
-    }
-    else {
-        data = {
+    let  data = {
             "username": input,
             "password": password
-        }
     }
 
     fetch('/login', {
@@ -23,12 +14,24 @@ function handleSubmit() {
         body: JSON.stringify(data),
     })
     .then(response => response.json())
-    .then(data => console.log(data));
-//    .then(window.location.href = 'category.html');
+//    .then(data => console.log(data));
+    .then(data => convert(data));
 
     window.onload = function() {
         const button = document.getElementById('bu');
         button.addEventListener('click', handleSubmit);
+    }
+}
+
+function convert(data) {
+    var showMessage = document.getElementById('showMessage');
+    if(data["loginSuccess"] == false) {
+        document.getElementById('input').setAttribute("class", "form-control is-invalid");
+        document.getElementById('password').setAttribute("class", "form-control is-invalid");
+        showMessage.innerHTML = "Username and Password doesn't match!";
+    }
+    else if (data["loginSuccess"] == true) {
+        window.location.href='category.html';
     }
 }
 

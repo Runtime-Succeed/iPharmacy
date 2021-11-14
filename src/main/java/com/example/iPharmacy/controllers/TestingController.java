@@ -38,6 +38,15 @@ public class TestingController {
 			s += qs + "\n\n";
 		return s;
 	}
+	
+	// Deletes All Users
+	/*
+	 * Commented to make sure it is not accidentally used
+	@GetMapping("/delete/users/all")
+	public String deleteAllUsers() {
+		userRepo.deleteAll();
+		return "All Users Deleted. User Count: " + userRepo.count() ;
+	}*/
 
 	// Manual Upload
 	/*

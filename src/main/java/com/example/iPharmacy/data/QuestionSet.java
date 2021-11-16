@@ -5,7 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.data.annotation.Id;
+
 public class QuestionSet {
+	
+	@Id
+	private String id;
 	
 	private String title;
 	private int rows;
@@ -30,6 +35,10 @@ public class QuestionSet {
 		this.questionAsk = questionAsk;
 		this.answerCols = new ArrayList<>(answerCols);		
 		this.questions = new ArrayList<>(questions);	//shallow copy
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	public String getTitle() {

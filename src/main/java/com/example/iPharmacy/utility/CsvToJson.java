@@ -101,17 +101,39 @@ public class CsvToJson {
         return -1;
     }
 
-    public static void main(String[] args) throws IOException {
-        CsvToJson c = new CsvToJson("C:\\Users\\Jay\\Downloads\\HTN_Dosage_List.csv","HTN_Dosage_List");
-        c.convertFile();
-        try {
-            FileWriter myWriter = new FileWriter(c.fileName+".json");
-            myWriter.write(c.convertFile().toString());
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
+	public static void main(String[] args) throws IOException {
+
+		String basePath = "BASE_PATH";
+
+		CsvToJson c = new CsvToJson(basePath + "HTN_Dosage_List.csv", "HTN Dosage List");
+		QuestionSet qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "ABX.csv", "ABX");
+		qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "ABX 3.csv", "ABX3");
+		qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "Asthma Drugs.csv", "Asthma Drugs");
+		qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "Drug List.csv", "Drug List");
+		qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "Epilepsy.csv", "Epilepsy");
+		qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "Integration Block.csv", "Integration Block");
+		qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "OP Drugs.csv", "OP Drugs");
+		qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "Pulmonary HTN.csv", "Pulmonary HTN");
+		qs = c.convertFile();
+
+		c = new CsvToJson(basePath + "RA Drugs.csv", "RA Drugs");
+		qs = c.convertFile();
+
+	}
 }

@@ -1,5 +1,6 @@
 package com.example.iPharmacy.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -14,6 +15,7 @@ import com.example.iPharmacy.data.Question;
 import com.example.iPharmacy.data.QuestionSet;
 import com.example.iPharmacy.database.QuestionSetRepository;
 import com.example.iPharmacy.database.UserInfoRepository;
+import com.example.iPharmacy.utility.CsvToJson;
 
 /**
  * Use this class for testing or manually editing data
@@ -72,7 +74,7 @@ public class TestingController {
 	@GetMapping("/manual/uploadQuestionSets")
 	public String uploadQuestionSets() throws IOException {
 		
-		String basePath = "PATH_ON_COMPUTER";
+		String basePath = "BASE_PATH";
 		
 		CsvToJson c = new CsvToJson(basePath + "HTN_Dosage_List.csv","HTN Dosage List");
         QuestionSet qs = c.convertFile();
@@ -118,6 +120,14 @@ public class TestingController {
         return "Data uploaded manually";
 
 	} */
+	
+	/*
+	@GetMapping("deleteQ")
+	public String deleteAll()
+	{
+		qsRepo.deleteAll();
+		return "Deleted all Qs";
+	}*/
 
 	// used for unit testing
 	@GetMapping("/example/questionSet")

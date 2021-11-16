@@ -134,6 +134,16 @@ public class CsvToJson {
 
 		c = new CsvToJson(basePath + "RA Drugs.csv", "RA Drugs");
 		qs = c.convertFile();
+		
+		 /*try {
+	            FileWriter myWriter = new FileWriter(c.fileName+".json");
+	            myWriter.write(c.convertFile().toString());
+	            myWriter.close();
+	            System.out.println("Successfully wrote to the file.");
+	        } catch (IOException e) {
+	            System.out.println("An error occurred.");
+	            e.printStackTrace();
+	        }*/
 
 	}
 }

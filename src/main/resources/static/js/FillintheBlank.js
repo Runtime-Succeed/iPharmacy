@@ -118,6 +118,7 @@ function showAnswer() {
 function checkAnswer() {
 
     for (let i=0; i<obj.answerCols.length; i++) {
+
         var inputSpace = document.getElementById("a" + i.toString());
         var userAns = inputSpace.value;
         var question = obj.answerCols[i];

@@ -15,7 +15,7 @@ function handleSubmit() {
         }
     }
 
-    fetch('/login', {
+    fetch('/login?username=user&password=pass', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

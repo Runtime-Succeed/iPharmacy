@@ -49,7 +49,7 @@ public class UserInfo implements UserDetails {
 	 */
 	public UserInfo(String firstName, String lastName, String email, String username, String password)
 			throws UnsupportedEncodingException {
-
+System.out.println("uhoh");
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

@@ -16,5 +16,5 @@ public interface UserInfoRepository extends MongoRepository<UserInfo, String> {
 	boolean doesUsernameExist(String username);
 	
 	UserInfo findByUsername(String username);
-
+	
 }

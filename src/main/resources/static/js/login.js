@@ -14,18 +14,23 @@ function handleSubmit() {
             "password": password
         }
     }
-
-    fetch('/login?username=user&password=pass', {
+    
+    fetch('/login?username=user1&password=password1', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .then(window.location.href = 'category.html');
-
+    .then(response => {
+    response.json();
+        window.location.href = 'category.html';
+        }
+    
+    )
+    .then(data => console.log(data));
+    
+ 
     window.onload = function() {
         const button = document.getElementById('bu');
         button.addEventListener('click', handleSubmit);

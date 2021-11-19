@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CsvToJson {
 
     private String filePath;
-    private String fileName;
+    public String fileName;
 
     public CsvToJson(String aFilePath, String aFileName){
         filePath = aFilePath;

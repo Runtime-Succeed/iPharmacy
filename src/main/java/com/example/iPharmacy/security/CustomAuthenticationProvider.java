@@ -29,7 +29,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		UserInfo storedUser = userRepo.findPasswordAndSaltAndIdByUsername(inputUsername);
 
 		if(storedUser == null)
+		{
+			System.out.println("Username '" + inputUsername + "' does not exist.");
 			throw new BadCredentialsException("User does not exist!");
+		}
 		else {
 				String storedSalt = storedUser.getSalt();
 				String storedPassword = storedUser.getPassword();
@@ -40,12 +43,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 						.encodeHexString(UserInfo.hashPassword(inputPassword.toCharArray(), storedSalt.getBytes()));
 
 				if (!hashedInputPassword.equals(storedPassword)) {
-					System.out.println("Login Failed.");
+					System.out.println("Login failed for user '" + inputUsername + "'.");
 					throw new BadCredentialsException("Password is incorrect!");
 				}
 				else {
 					UserInfo validUserIdAndUsername = userRepo.findIdAndUsernameById(id);
-					System.out.println("Login Succeeded. :))");
+					System.out.println("Login Succeeded for user '" + inputUsername + "'.");
 					return new UsernamePasswordAuthenticationToken(validUserIdAndUsername, "", new HashSet<GrantedAuthority>());
 				}
 		}

@@ -1,0 +1,59 @@
+package com.example.iPharmacy.security;
+
+import java.util.HashSet;
+
+import org.apache.commons.codec.binary.Hex;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
+
+import com.example.iPharmacy.database.UserInfoRepository;
+
+@Component
+public class CustomAuthenticationProvider implements AuthenticationProvider {
+
+	@Autowired
+	private UserInfoRepository userRepo;
+	
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
+		String inputUsername = authentication.getName();
+		String inputPassword = (String) authentication.getCredentials();
+
+		UserInfo storedUser = userRepo.findPasswordAndSaltAndIdByUsername(inputUsername);
+
+		if(storedUser == null)
+			throw new BadCredentialsException("User does not exist!");
+		else {
+				String storedSalt = storedUser.getSalt();
+				String storedPassword = storedUser.getPassword();
+				String id = storedUser.getId();
+				
+				// hash entered password with same salt and compare with stored password
+				String hashedInputPassword = Hex
+						.encodeHexString(UserInfo.hashPassword(inputPassword.toCharArray(), storedSalt.getBytes()));
+
+				if (!hashedInputPassword.equals(storedPassword)) {
+					System.out.println("Login Failed.");
+					throw new BadCredentialsException("Password is incorrect!");
+				}
+				else {
+					UserInfo validUserIdAndUsername = userRepo.findIdAndUsernameById(id);
+					System.out.println("Login Succeeded. :))");
+					return new UsernamePasswordAuthenticationToken(validUserIdAndUsername, "", new HashSet<GrantedAuthority>());
+				}
+		}
+	}
+
+	@Override
+	public boolean supports(Class<?> authentication) {
+		return authentication.equals(UsernamePasswordAuthenticationToken.class);
+	}
+
+}

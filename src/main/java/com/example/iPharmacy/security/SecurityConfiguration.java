@@ -12,12 +12,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Configuration
+//@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
+	
+	@Autowired
+    private CustomAuthenticationProvider authProvider; 
 	
 	@Autowired
 	private NoOpPasswordEncoder bCrypt;
@@ -34,6 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin()
 			.loginPage("/login.html")
+			.loginProcessingUrl("/login")
 			.and()
 			.logout()
 			.invalidateHttpSession(true)
@@ -55,7 +59,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//USE AUTHPROVIDER!!!
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		//auth.userDetailsService(createCustomUserDetailsService()).passwordEncoder(bCrypt);
+		auth.authenticationProvider(authProvider);
+		//userDetailsService(createCustomUserDetailsService()).passwordEncoder(bCrypt);
 	}
 	
 	 @Bean

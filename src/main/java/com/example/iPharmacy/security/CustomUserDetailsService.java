@@ -28,6 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//String passwordAndSaltInfo = userRepo.findPasswordAndSaltByUsername(username);
+		System.out.println("hi");
 		UserInfo user = userRepo.findByUsername(username);
 		//System.out.println("trying to authenticate...");
 		//System.out.println(passwordAndSaltInfo);

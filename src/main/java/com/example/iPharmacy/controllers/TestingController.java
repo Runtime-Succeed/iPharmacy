@@ -48,20 +48,26 @@ public class TestingController {
 		this.userRepo = userRepo;
 	}
 	
+	@GetMapping("testnew")
+	public UserInfo testNew() {
+		return userRepo.findPasswordAndSaltAndIdByUsername("user1");
+	}
+	
 	@PostMapping("dologout")
 	public void logout() {
 		System.out.println("log out");
 	}
 	
-	@PostMapping("/login")
-	public void isLoggedIn(HttpServletRequest h, @RequestParam("username") String username, @RequestParam() String password) {
-		
+	/*@PostMapping("/login")
+	public void isLoggedIn(HttpServletRequest h, @RequestParam("username") String username, @RequestParam("password") String password) {
+		System.out.println("username: " + username + "\npassword: " + password);
+
 		Principal p = h.getUserPrincipal();
 		
 		if(p != null)
 			System.out.println(p.getName());
 		
-		try {
+		/*try {
 		Authentication auth = new UsernamePasswordAuthenticationToken(username, password, new HashSet<GrantedAuthority>());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -71,7 +77,7 @@ public class TestingController {
 			e.printStackTrace();
 		}
 		System.out.println("username: " + username + "\npassword: " + password);
-	}
+	}*/
 	
 	@GetMapping(value = "/data/text", produces = "text/plain")
 	public String getData() {

@@ -37,6 +37,8 @@ public class UserInfo implements UserDetails {
 	private static final int ITERATIONS = 10000;
 	private static final int KEYLENGTH = 512;
 	private static final String HASHALGORITHM = "PBKDF2WithHmacSHA512";
+	
+	public UserInfo() {System.out.println("no args");}
 
 	/**
 	 * 
@@ -49,7 +51,7 @@ public class UserInfo implements UserDetails {
 	 */
 	public UserInfo(String firstName, String lastName, String email, String username, String password)
 			throws UnsupportedEncodingException {
-System.out.println("uhoh");
+		System.out.println("uhoh");
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -95,10 +97,13 @@ System.out.println("uhoh");
 	}
 
 	public String getPassword() {
+		System.out.println("getter");
 		return password;
 	}
 
 	public void setPassword(String password) {
+		
+		System.out.println("deserialize?");
 		// generate salt value
 		generateSalt();
 
@@ -107,6 +112,11 @@ System.out.println("uhoh");
 		byte[] saltBytes = salt.getBytes();
 		byte[] hashedBytes = hashPassword(passwordChars, saltBytes);
 		this.password = Hex.encodeHexString(hashedBytes);
+	}
+	
+	public void setSalt(String h) {
+		System.out.println("setter");
+		salt = h;
 	}
 
 	public String getSalt() {

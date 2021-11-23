@@ -29,9 +29,15 @@ function convert(data) {
         document.getElementById('input').setAttribute("class", "form-control is-invalid");
         document.getElementById('password').setAttribute("class", "form-control is-invalid");
         showMessage.innerHTML = "Username and Password doesn't match!";
+        localStorage.setItem("username", "");
     }
     else if (data["loginSuccess"] == true) {
+
+//        console.log(data["username"]);
+        localStorage.setItem("username", data["username"]);
         window.location.href='category.html';
+//        console.log(localStorage.getItem("username"));
+
     }
 }
 

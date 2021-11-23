@@ -1,26 +1,14 @@
 package com.example.iPharmacy.controllers;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.iPharmacy.data.Question;
@@ -40,44 +28,10 @@ public class TestingController {
 	private UserInfoRepository userRepo;
 	
 	@Autowired
-	private AuthenticationManager authManager;
-
-	@Autowired
 	public TestingController(QuestionSetRepository qsRepo, UserInfoRepository userRepo) {
 		this.qsRepo = qsRepo;
 		this.userRepo = userRepo;
 	}
-	
-	@GetMapping("testnew")
-	public UserInfo testNew() {
-		return userRepo.findPasswordAndSaltAndIdByUsername("user1");
-	}
-	
-	@PostMapping("dologout")
-	public void logout() {
-		System.out.println("log out");
-	}
-	
-	/*@PostMapping("/login")
-	public void isLoggedIn(HttpServletRequest h, @RequestParam("username") String username, @RequestParam("password") String password) {
-		System.out.println("username: " + username + "\npassword: " + password);
-
-		Principal p = h.getUserPrincipal();
-		
-		if(p != null)
-			System.out.println(p.getName());
-		
-		/*try {
-		Authentication auth = new UsernamePasswordAuthenticationToken(username, password, new HashSet<GrantedAuthority>());
-		SecurityContextHolder.getContext().setAuthentication(auth);
-
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		System.out.println("username: " + username + "\npassword: " + password);
-	}*/
 	
 	@GetMapping(value = "/data/text", produces = "text/plain")
 	public String getData() {

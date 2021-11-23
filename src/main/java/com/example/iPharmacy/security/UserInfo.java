@@ -1,27 +1,24 @@
 package com.example.iPharmacy.security;
 
-import org.apache.commons.codec.binary.Hex;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.example.iPharmacy.data.QuestionSet;
-
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+
+import org.apache.commons.codec.binary.Hex;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.example.iPharmacy.data.QuestionSet;
+
 @Document
-public class UserInfo implements UserDetails {
+public class UserInfo {
 
 	@Id
 	private String id;
@@ -38,10 +35,23 @@ public class UserInfo implements UserDetails {
 	private static final int KEYLENGTH = 512;
 	private static final String HASHALGORITHM = "PBKDF2WithHmacSHA512";
 	
-	public UserInfo() {System.out.println("no args");}
+	/**
+	 * For deserialization 
+	 */
+	public UserInfo() {}
+	
+	/**
+	 * For creating Principal in Authentication
+	 * @param id
+	 * @param username
+	 */
+	public UserInfo(String id, String username) {
+		this.id = id;
+		this.username = username;
+	}
 
 	/**
-	 * 
+	 * Creates new user with random salt and hashes password
 	 * @param firstName
 	 * @param lastName
 	 * @param email
@@ -97,26 +107,18 @@ public class UserInfo implements UserDetails {
 	}
 
 	public String getPassword() {
-		System.out.println("getter");
 		return password;
 	}
 
 	public void setPassword(String password) {
 		
-		System.out.println("deserialize?");
-		// generate salt value
 		generateSalt();
-
-		// hash password
+		
+		//hash password
 		char[] passwordChars = password.toCharArray();
 		byte[] saltBytes = salt.getBytes();
 		byte[] hashedBytes = hashPassword(passwordChars, saltBytes);
 		this.password = Hex.encodeHexString(hashedBytes);
-	}
-	
-	public void setSalt(String h) {
-		System.out.println("setter");
-		salt = h;
 	}
 
 	public String getSalt() {
@@ -145,36 +147,6 @@ public class UserInfo implements UserDetails {
 
 	private void generateSalt() {
 		this.salt = Integer.toString(new Random().nextInt());
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return new HashSet<GrantedAuthority>();
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
 	}
 
 }

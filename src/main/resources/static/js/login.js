@@ -15,7 +15,7 @@ function handleSubmit() {
         }
     }
     
-    fetch('/login?username=user1&password=password1', {
+    fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ function handleSubmit() {
         body: JSON.stringify(data),
     })
     .then(response => {
-    response.json();
+    	response.json();
         window.location.href = 'category.html';
         }
     

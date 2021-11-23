@@ -19,38 +19,37 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	private UserInfoRepository userRepo;
-	
+
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-		String inputUsername = authentication.getName();
-		String inputPassword = (String) authentication.getCredentials();
+		String inputUsername = (String)authentication.getPrincipal();
+		String inputPassword = (String)authentication.getCredentials();
 
 		UserInfo storedUser = userRepo.findPasswordAndSaltAndIdByUsername(inputUsername);
 
-		if(storedUser == null)
-		{
+		if (storedUser == null) {
 			System.out.println("Username '" + inputUsername + "' does not exist.");
-			throw new BadCredentialsException("User does not exist!");
-		}
+			throw new BadCredentialsException("Username does not exist.");
+		} 
 		else {
-				String storedSalt = storedUser.getSalt();
-				String storedPassword = storedUser.getPassword();
-				String id = storedUser.getId();
-				
-				// hash entered password with same salt and compare with stored password
-				String hashedInputPassword = Hex
-						.encodeHexString(UserInfo.hashPassword(inputPassword.toCharArray(), storedSalt.getBytes()));
+			String storedSalt = storedUser.getSalt();
+			String storedPassword = storedUser.getPassword();
+			String id = storedUser.getId();
 
-				if (!hashedInputPassword.equals(storedPassword)) {
-					System.out.println("Login failed for user '" + inputUsername + "'.");
-					throw new BadCredentialsException("Password is incorrect!");
-				}
-				else {
-					UserInfo validUserIdAndUsername = userRepo.findIdAndUsernameById(id);
-					System.out.println("Login Succeeded for user '" + inputUsername + "'.");
-					return new UsernamePasswordAuthenticationToken(validUserIdAndUsername, "", new HashSet<GrantedAuthority>());
-				}
+			//hash entered password with same salt and compare with stored password
+			String hashedInputPassword = Hex
+					.encodeHexString(UserInfo.hashPassword(inputPassword.toCharArray(), storedSalt.getBytes()));
+
+			if(!hashedInputPassword.equals(storedPassword)) {
+				System.out.println("Login failed for user '" + inputUsername + "'.");
+				throw new BadCredentialsException("Password is incorrect!");
+			} 
+			else {
+				UserInfo validUserIdAndUsername = new UserInfo(id, inputUsername);
+				System.out.println("Login Succeeded for user '" + inputUsername + "'.");
+				return new UsernamePasswordAuthenticationToken(validUserIdAndUsername, "", new HashSet<GrantedAuthority>());
+			}
 		}
 	}
 

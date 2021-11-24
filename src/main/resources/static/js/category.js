@@ -12,8 +12,36 @@ function setID(id,type) {
         location.href = "multipleChoice.html";
 }
 
-async function loadTopic() {
+let title;
+let username;
 
+
+//window.addEventListener('load', function() {
+//   if (localStorage.getItem("username") != "") {
+//            console.log(localStorage.getItem("username"));
+//            document.getElementById("signIn").style.visibility = "hidden";
+//            document.getElementById("user").innerHTML = localStorage.getItem("username");
+//            document.getElementById("user").style.visibility = "show";
+//        }
+//});
+
+function getUsername() {
+    if (localStorage.getItem("username") === "" || localStorage.getItem("username") == null) {
+//        console.log(localStorage.getItem("username"));
+        document.getElementById("signIn").style.display = "block";
+        document.getElementById("user").innerHTML = "";
+        document.getElementById("user").style.display = "none";
+        document.getElementById("logOut").style.display = "none";
+    }
+    else {
+        document.getElementById("signIn").style.display = "none";
+        document.getElementById("user").innerHTML = "Welcome, " + localStorage.getItem("username");
+        document.getElementById("user").style.display = "block";
+        document.getElementById("logOut").style.display = "block";
+    }
+}
+
+async function loadTopic() {
     await fetch("/data/titles")
         .then(res => res.json())
         .then(data => titles = data)
@@ -66,6 +94,12 @@ async function loadTopic() {
         cnode.append(ccnode);
 
         node.appendChild(cnode);
-
     }
+    getUsername();
 }
+
+function logout() {
+    localStorage.setItem("username", "");
+    window.location.href = 'index.html';
+}
+

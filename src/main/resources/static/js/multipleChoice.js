@@ -1,12 +1,18 @@
-let currPos = 0;
+let currPos;
 let obj;
 let correctIndex = 0;
 
 async function showMultipleChoice(questionPos) {
 
-    await fetch("/data/htn-dosage-list")
+    let url = sessionStorage.getItem('idurl').replace(/"/g,"");
+    await fetch(`/data/questionSet?id=${url}`)
         .then(res => res.json())
         .then(data => obj = data)
+
+    console.log(obj);
+    // await fetch("/data/htn-dosage-list")
+    //     .then(res => res.json())
+    //     .then(data => obj = data)
 
     const getButton = document.getElementById("answerStatus");
     if (getButton.innerText === "Hide Answer")

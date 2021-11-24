@@ -1,16 +1,15 @@
-let currPos = 0;
-let obj;
-
-
 async function showQuestion(questionPos) {
+
+    let url = sessionStorage.getItem('idurl').replace(/"/g,"");
 
     // ./json/HTN_Dosage_List (3).json
     // /data/htn-dosage-list
     // ./json/HTN_alternative.json
-    await fetch("/data/htn-dosage-list")
+    await fetch(`/data/questionSet?id=${url}`)
         .then(res => res.json())
         .then(data => obj = data)
     //.then(() => console.log(obj))  // for debug, don't delete
+
 
     // Make sure the currPos within the range
     if (questionPos < 0)
@@ -26,7 +25,6 @@ async function showQuestion(questionPos) {
     const getButton = document.getElementById("answerStatus");
     if (getButton.innerText === "Hide Answer")
         getButton.innerText = "Show Answer";
-
 
     // Remove the previous information, be ready to load new question
     const div = document.getElementById("questionList");

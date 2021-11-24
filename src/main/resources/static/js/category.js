@@ -1,28 +1,70 @@
-let title;
+let titles;
+let idurl;
+
+function setID(id,type) {
+
+    idurl = JSON.parse(sessionStorage.getItem("titles"));
+
+    sessionStorage.setItem("idurl",JSON.stringify(idurl[parseInt(id)]['id']));
+    if (type === 1)
+        location.href = "FillintheBlank.html";
+    else
+        location.href = "multipleChoice.html";
+}
 
 async function loadTopic() {
 
     await fetch("/data/titles")
         .then(res => res.json())
-        .then(data => title = data)
+        .then(data => titles = data)
 
-    for (let i = 0;i < title.length; i++) {
+    sessionStorage.setItem("titles",JSON.stringify(titles));
+
+    for (let i = 0;i < titles.length; i++) {
 
         let node = document.getElementById("questionList");
         let cnode = document.createElement('div');
         cnode.setAttribute('class','feature col');
         let ccnode = document.createElement('h2');
-        ccnode.innerText = title[i]['title'];
+        ccnode.innerText = titles[i]['title'];
         cnode.appendChild(ccnode);
 
-        s = "<a href=\"#\" class=\"btn btn-primary\" onclick=\"window.location.href='htndosagelist.html'\">\n" +
-            "                    Fill in the blank\n" +
-            "                </a>\n" +
-            "                <a href=\"#\" class=\"btn btn-primary\" onclick=\"window.location.href='htndosagelist_multiple.html'\">\n" +
-            "                    Multiple Choice\n" +
-            "                </a>";
+        // let divNode = document.createElement('div');
+        // divNode.setAttribute('class','feature col');
+        // ccnode = document.createElement('a');
+        // ccnode.setAttribute('class','btn btn-primary');
+        // ccnode.setAttribute('id','f'+i.toString());
+        // ccnode.innerText = 'Fill in the blank';
+        // ccnode.setAttribute("onclick","setID("+i+")");
+        // divNode.append(ccnode);
+        // cnode.append(divNode);
+        //
+        // divNode = document.createElement('div');
+        // divNode.setAttribute('class','feature col');
+        // ccnode = document.createElement('a');
+        // ccnode.setAttribute('class','btn btn-primary');
+        // ccnode.setAttribute('id','m'+i.toString());
+        // ccnode.innerText = 'Multiple Choice';
+        // ccnode.setAttribute("onclick","setID("+i+")");
+        // divNode.append(ccnode);
+        // cnode.append(divNode);
 
-        cnode.insertAdjacentHTML("beforeend",s);
+        ccnode = document.createElement('a');
+        ccnode.setAttribute('class','btn btn-primary');
+        ccnode.setAttribute('id','f'+i.toString());
+        ccnode.innerText = 'Fill in the blank';
+        ccnode.setAttribute("onclick","setID("+i+","+1+")");
+        cnode.append(ccnode);
+
+        cnode.append(document.createTextNode( '\u00A0' ));
+
+        ccnode = document.createElement('a');
+        ccnode.setAttribute('class','btn btn-primary');
+        ccnode.setAttribute('id','m'+i.toString());
+        ccnode.innerText = 'Multiple Choice';
+        ccnode.setAttribute("onclick","setID("+i+","+2+")");
+        cnode.append(ccnode);
+
         node.appendChild(cnode);
 
     }

@@ -11,18 +11,18 @@ let username;
 //});
 
 function getUsername() {
-    if (localStorage.getItem("username") != "") {
+    if (localStorage.getItem("username") == "" || localStorage.getItem("username") == null) {
 //        console.log(localStorage.getItem("username"));
+        document.getElementById("signIn").style.display = "block";
+        document.getElementById("user").innerHTML = "";
+        document.getElementById("user").style.display = "none";
+        document.getElementById("logOut").style.display = "none";
+    }
+    else {
         document.getElementById("signIn").style.display = "none";
         document.getElementById("user").innerHTML = "Welcome, " + localStorage.getItem("username");
         document.getElementById("user").style.display = "block";
         document.getElementById("logOut").style.display = "block";
-    }
-    else if (localStorage.getItem("username") == ""){
-        document.getElementById("signIn").style.display = "block";
-        document.getElementById("user").innerHTML = localStorage.getItem("username");
-        document.getElementById("user").style.display = "none";
-        document.getElementById("logOut").style.display = "none";
     }
 }
 

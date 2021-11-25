@@ -8,7 +8,7 @@ import com.example.iPharmacy.security.UserInfo;
 
 @Repository
 public interface UserInfoRepository extends MongoRepository<UserInfo, String> {
-	
+		
 	@Query(value = "{username: ?0}", fields = "{_id: 0, password: 1, salt: 1}")
 	UserInfo findPasswordAndSaltByUsername(String username);
 	

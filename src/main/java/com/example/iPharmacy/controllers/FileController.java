@@ -48,7 +48,7 @@ public class FileController {
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(Authentication auth, @RequestParam("file") MultipartFile file) {
     	System.out.println("upload reached");
-        UserInfo currentIDUsername = (UserInfo)auth.getPrincipal();
+        UserInfo currentIDAndUsername = (UserInfo)auth.getPrincipal();
         String message = "";
         try {
             String nameFile = file.getOriginalFilename();
@@ -66,7 +66,7 @@ public class FileController {
                 CsvToJson fUpload = new CsvToJson("uploads/" + nameFile, nameOfFile);
                 QuestionSet qs = fUpload.convertFile();
                 
-                UserInfo currentUser = userRepo.findById(currentIDUsername.getId()).get();
+                UserInfo currentUser = userRepo.findById(currentIDAndUsername.getId()).get();
                 currentUser.addQuestionSet(qs);
                 userRepo.save(currentUser);
                 

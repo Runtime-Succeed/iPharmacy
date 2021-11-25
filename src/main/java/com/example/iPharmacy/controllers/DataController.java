@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,12 @@ public class DataController {
 	@GetMapping("/questionSet/all")
 	public List<QuestionSet> getAllQuestionSets() {
 		return qsRepo.findAll();
+	}
+	
+	@GetMapping("/htn-dosage-list")
+	public QuestionSet getHtn(Authentication a) {
+		System.out.println(((UserInfo)a.getPrincipal()).getUsername());
+		return qsRepo.findFirstByTitle("HTN Dosage List");
 	}
 	
 	@GetMapping("/titles")

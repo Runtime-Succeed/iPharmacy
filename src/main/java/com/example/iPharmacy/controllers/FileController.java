@@ -52,7 +52,6 @@ public class FileController {
         String message = "";
         try {
             String nameFile = file.getOriginalFilename();
-            deleteFolderfiles(new File("uploads"));
             String nameOfFile;
             char[] temp = nameFile.toCharArray();
             int num = temp.length;
@@ -69,18 +68,7 @@ public class FileController {
                 UserInfo currentUser = userRepo.findById(currentIDAndUsername.getId()).get();
                 currentUser.addQuestionSet(qs);
                 userRepo.save(currentUser);
-                
-                try {
-                    File jFile = new File("src/main/resources/static/json/" + fUpload.fileName + ".json");
-                    FileWriter myWriter = new FileWriter(jFile);
-                    myWriter.write(fUpload.convertFile().toString());
-                    myWriter.close();
-                    System.out.println("Successfully wrote to the file.");
-
-                } catch (IOException e) {
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
+                deleteFolderfiles(new File("uploads"));
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
                 storageService.deleteAll();
                 return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));

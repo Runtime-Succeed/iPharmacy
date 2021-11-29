@@ -1,5 +1,5 @@
 function getUsername() {
-    if (localStorage.getItem("username") == "" || localStorage.getItem("username") == null) {
+    if (localStorage.getItem("username") === "" || localStorage.getItem("username") == null) {
 //        console.log(localStorage.getItem("username"));
         document.getElementById("signIn").style.display = "block";
         document.getElementById("user").innerHTML = "";
@@ -14,7 +14,19 @@ function getUsername() {
     }
 }
 
+
 function logout() {
     localStorage.setItem("username", "");
     window.location.href = 'index.html';
+}
+
+
+async function uploadFile() {
+    let formData = new FormData();
+    formData.append("file", fileupload.files[0]);
+    await fetch('/upload', {
+        method: "POST",
+        body: formData
+    });
+    alert('The file has been uploaded successfully.');
 }

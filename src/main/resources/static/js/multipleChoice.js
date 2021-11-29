@@ -138,6 +138,7 @@ function showAnswer() {
 
 
 function checkAnswer() {
+
     let maxQuestionNum = (obj.rows > 3)? 4 : obj.rows;
     let userChoice = -1;
     for (let i=0; i<maxQuestionNum; i++) {
@@ -155,4 +156,5 @@ function checkAnswer() {
         let correctNode = document.getElementById('c'+ correctIndex.toString());
         correctNode.setAttribute('class','p-3 mb-2 bg-success text-white');
     }
+
 }

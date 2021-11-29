@@ -1,0 +1,155 @@
+Title: HTN_Dosage_List
+Rows: 30
+Question asking for: Generic
+Answer columns: Brand, Dose (mg), Max Dose (mg)
+Questions: 
+	Question Text: Chlorthalidone
+	Brand: Thalitone
+	Dose (mg): 25 QD
+	Max Dose (mg): 100 QD
+
+	Question Text: HCTZ
+	Brand: MAcrozide
+	Dose (mg): 12.5-50 QD
+	Max Dose (mg): 50 QD
+
+	Question Text: Lisinopril
+	Brand: Prinivil, Zestril, Qbrelis
+	Dose (mg): 10-40 QD
+	Max Dose (mg): 40 QD
+
+	Question Text: Enalapril 
+	Brand: Vasotec
+	Dose (mg): 5-40 QD-BID
+	Max Dose (mg): 40 QD
+
+	Question Text: Ramipril 
+	Brand: Altace
+	Dose (mg): 2.5-10 QD-BID
+	Max Dose (mg): 20 QD
+
+	Question Text: Losartan
+	Brand: Cozaar
+	Dose (mg): 25-100 QD-BID
+	Max Dose (mg): 100 QD
+
+	Question Text: Valsartan
+	Brand: Diovan
+	Dose (mg): 80-320 QD
+	Max Dose (mg): 320 QD
+
+	Question Text: Amlodipine
+	Brand: Norvasc
+	Dose (mg): 2.5-10 QD
+	Max Dose (mg): 10 QD
+
+	Question Text: Nifedipine
+	Brand: Adalat, Procardia
+	Dose (mg): 30-90 QD
+	Max Dose (mg): 180QD
+
+	Question Text: Diltiazem CER
+	Brand: Cardizem CD, Cartia, Taxtia, Tiadylt, Tiazac
+	Dose (mg): 120-360 QD-BID
+	Max Dose (mg): Varies
+
+	Question Text: Diltiazem TER
+	Brand: Cardizem LA
+	Dose (mg): 120-360 QD-BID
+	Max Dose (mg): Varies
+
+	Question Text: Verapamil IR
+	Brand: Calan
+	Dose (mg): 240-480 TID-QID
+	Max Dose (mg): Varies
+
+	Question Text: Verapamil TER/CR
+	Brand: Calan SR
+	Dose (mg): 240-480 QD-BID
+	Max Dose (mg): Varies
+
+	Question Text: Verapamil CER
+	Brand: Verelan
+	Dose (mg): 240-480 QD-BID
+	Max Dose (mg): Varies
+
+	Question Text: Furosemide
+	Brand: Lasix
+	Dose (mg): 20-40 BID
+	Max Dose (mg): 160 QD
+
+	Question Text: Spironolactone
+	Brand: Aldactone
+	Dose (mg): 25-100 QD
+	Max Dose (mg): 100 QD
+
+	Question Text: Triamteren
+	Brand: Dyreneium
+	Dose (mg): 50-100 QD-BID
+	Max Dose (mg): 200 QD
+
+	Question Text: Atenolol
+	Brand: Tenormin
+	Dose (mg): 25-100 QD
+	Max Dose (mg): 100 QD
+
+	Question Text: Metoprolol tartrate
+	Brand: Lopressor
+	Dose (mg): 25-100 BID
+	Max Dose (mg): 200 QD
+
+	Question Text: Metoprolol succinate
+	Brand: Toprol XL
+	Dose (mg): 12.5-200 QD
+	Max Dose (mg): 200 QD
+
+	Question Text: Propranolol IR 
+	Brand: Inderal
+	Dose (mg): 40-160 BID
+	Max Dose (mg): 320 QD
+
+	Question Text: Propranolol LA
+	Brand: Inderal LA, InnoPran XL
+	Dose (mg): 80-160 QD
+	Max Dose (mg): 160 QD
+
+	Question Text: Carvedilol
+	Brand: Coreg
+	Dose (mg): 3.125-50 BID
+	Max Dose (mg): 25 <=85Kg, 50 >85Kg
+
+	Question Text: Carvedilol PO4
+	Brand: Coreg CR
+	Dose (mg): 20-80 QD
+	Max Dose (mg): 80 QD
+
+	Question Text: Labetalol
+	Brand: Trandate, Normodyne 
+	Dose (mg): 100-1200 BID
+	Max Dose (mg): 2400 QD
+
+	Question Text: Doxazosin
+	Brand: Cardura
+	Dose (mg): 1-8 QD
+	Max Dose (mg): 16 QD
+
+	Question Text: Prazosin
+	Brand: Minipress
+	Dose (mg): 1-5 BID-TID
+	Max Dose (mg): 15 QD
+
+	Question Text: Clonidine
+	Brand: Catapres
+	Dose (mg): 0.1-0.3 BID-TID
+	Max Dose (mg): 0.8 QD
+
+	Question Text: Clonidine Patch
+	Brand: Catapres
+	Dose (mg): 0.1-0.3 QWEEK
+	Max Dose (mg): 0.3 QWEEK
+
+	Question Text: Hydralazine 
+	Brand: -1
+	Dose (mg): 10-50 TID-QID
+	Max Dose (mg): 200 QD
+

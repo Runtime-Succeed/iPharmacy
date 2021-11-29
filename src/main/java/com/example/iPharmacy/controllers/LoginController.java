@@ -1,16 +1,19 @@
 package com.example.iPharmacy.controllers;
 
-import org.apache.commons.codec.binary.Hex;
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.iPharmacy.database.UserInfoRepository;
 import com.example.iPharmacy.security.UserInfo;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -21,53 +24,43 @@ public class LoginController {
 	private static ObjectMapper mapper;
 	
 	@Autowired
+	private AuthenticationProvider authProvider;
+	
+	@Autowired
 	public LoginController(UserInfoRepository userRepo, ObjectMapper mapper) {
 		this.userRepo = userRepo;
 		LoginController.mapper = mapper;
 	}
 	
 	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ObjectNode signUp(@RequestBody UserInfo newUser) {
+	public ObjectNode signUp(@RequestBody ObjectNode newUser) throws UnsupportedEncodingException {
 		System.out.println("signup reached");
 		ObjectNode response = mapper.createObjectNode();
-		if (!userRepo.doesUsernameExist(newUser.getUsername())) {
-			userRepo.insert(newUser);
+		
+		if (!userRepo.doesUsernameExist(newUser.get("username").asText())) {
+			userRepo.insert(new UserInfo(
+					newUser.get("firstName").asText(),
+					newUser.get("lastName").asText(),
+					newUser.get("email").asText(),
+					newUser.get("username").asText(),
+					newUser.get("password").asText()
+					));
 			return response.put("signupSuccess", true);
 		}
 		return response.put("signupSuccess", false);
 	}
 	
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ObjectNode login(@RequestBody ObjectNode body) throws JsonProcessingException {
+	public ObjectNode login(@RequestBody ObjectNode body) {
 		
-		String inputUsername = body.get("username").asText();
-		String storedUser = userRepo.findPasswordAndSaltByUsername(inputUsername);
+		String username = body.get("username").asText();
+		String password = body.get("password").asText();
 		
-		//if a user with the specified username exists
-		if(storedUser != null) {
-			
-			String inputPassword = body.get("password").asText();
-			JsonNode obj = mapper.readTree(storedUser);
-			String storedSalt = obj.get("salt").asText();
-			
-			//hash user-entered password with same salt and compare result with stored password
-			String hashedInputPassword = Hex.encodeHexString(
-					UserInfo.hashPassword(inputPassword.toCharArray(), storedSalt.getBytes())
-					);
-			
-			//actual password hashed
-			String storedPassword = obj.get("password").asText();
-			
-			if(hashedInputPassword.equals(storedPassword))
-			{
-				System.out.println("Login Succeeded.");
-				return mapper.createObjectNode().put("loginSuccess", true).put("username", inputUsername);
-			}
-		}
-		
-		System.out.println("Login Failed.");
-		return mapper.createObjectNode().put("loginSuccess", false);
-		
+		System.out.println("username: " + username + "\npassword: " + password);
+
+		Authentication auth = authProvider.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		return new ObjectMapper().createObjectNode().put("loginSuccess", true).put("username", username);
 	}
 
 }

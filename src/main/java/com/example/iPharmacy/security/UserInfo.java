@@ -1,20 +1,21 @@
 package com.example.iPharmacy.security;
 
-import org.apache.commons.codec.binary.Hex;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.example.iPharmacy.data.QuestionSet;
-
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+
+import org.apache.commons.codec.binary.Hex;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.example.iPharmacy.data.QuestionSet;
 
 @Document
 public class UserInfo {
@@ -33,9 +34,24 @@ public class UserInfo {
 	private static final int ITERATIONS = 10000;
 	private static final int KEYLENGTH = 512;
 	private static final String HASHALGORITHM = "PBKDF2WithHmacSHA512";
+	
+	/**
+	 * For deserialization 
+	 */
+	public UserInfo() {}
+	
+	/**
+	 * For creating Principal in Authentication
+	 * @param id
+	 * @param username
+	 */
+	public UserInfo(String id, String username) {
+		this.id = id;
+		this.username = username;
+	}
 
 	/**
-	 * 
+	 * Creates new user with random salt and hashes password
 	 * @param firstName
 	 * @param lastName
 	 * @param email
@@ -45,7 +61,6 @@ public class UserInfo {
 	 */
 	public UserInfo(String firstName, String lastName, String email, String username, String password)
 			throws UnsupportedEncodingException {
-
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -95,10 +110,10 @@ public class UserInfo {
 	}
 
 	public void setPassword(String password) {
-		// generate salt value
+		
 		generateSalt();
-
-		// hash password
+		
+		//hash password
 		char[] passwordChars = password.toCharArray();
 		byte[] saltBytes = salt.getBytes();
 		byte[] hashedBytes = hashPassword(passwordChars, saltBytes);

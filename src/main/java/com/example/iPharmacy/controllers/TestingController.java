@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,21 +19,36 @@ import com.example.iPharmacy.data.Question;
 import com.example.iPharmacy.data.QuestionSet;
 import com.example.iPharmacy.database.QuestionSetRepository;
 import com.example.iPharmacy.database.UserInfoRepository;
+import com.example.iPharmacy.database.UserInfoRepositoryTemplate;
+import com.example.iPharmacy.security.UserInfo;
 import com.example.iPharmacy.utility.CsvToJson;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Use this class for testing or manually editing data
  */
 @RestController
 public class TestingController {
+	
+	@Autowired
+	private UserInfoRepositoryTemplate mongoTemplate;
 
 	private QuestionSetRepository qsRepo;
 	private UserInfoRepository userRepo;
-
+	
 	@Autowired
 	public TestingController(QuestionSetRepository qsRepo, UserInfoRepository userRepo) {
 		this.qsRepo = qsRepo;
 		this.userRepo = userRepo;
+	}
+
+	@GetMapping(value = "/titles", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String getTitle(Authentication a) throws JsonProcessingException {
+		UserInfo user = userRepo.findAllTitlesById(((UserInfo)a.getPrincipal()).getId());
+		ObjectMapper obj = new ObjectMapper().setSerializationInclusion(Include.NON_DEFAULT);
+		return obj.writeValueAsString(user.getQuestionSets());
 	}
 	
 	@GetMapping(value = "/data/text", produces = "text/plain")
@@ -53,6 +72,61 @@ public class TestingController {
 	// Manual Upload
 	/*
 	 * Commented to make sure it is not accidentally used
+	 * Creates a user with all the question sets loaded
+	@GetMapping("/manual/uploadUserQuestionSets2")
+	public String uploadQuestionSets2() throws IOException {
+		
+		String basePath = "BASE_PATH";
+		
+		UserInfo user = new UserInfo("Afirstname", "Alastname", "email@email.com", "user1", "password1");
+		
+		CsvToJson c = new CsvToJson(basePath + "HTN_Dosage_List.csv","HTN Dosage List");
+        QuestionSet qs = c.convertFile();
+        user.addQuestionSet(qs);
+        
+		c = new CsvToJson(basePath + "ABX.csv", "ABX");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+		
+		c = new CsvToJson(basePath + "ABX 3.csv", "ABX3");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+        
+		c = new CsvToJson(basePath + "Asthma Drugs.csv", "Asthma Drugs");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+		
+		c = new CsvToJson(basePath + "Drug List.csv", "Drug List");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+		
+		c = new CsvToJson(basePath + "Epilepsy.csv", "Epilepsy");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+		
+		c = new CsvToJson(basePath + "Integration Block.csv", "Integration Block");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+		
+		c = new CsvToJson(basePath + "OP Drugs.csv", "OP Drugs");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+		
+		c = new CsvToJson(basePath + "Pulmonary HTN.csv", "Pulmonary HTN");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+		
+		c = new CsvToJson(basePath + "RA Drugs.csv", "RA Drugs");
+		qs = c.convertFile();
+        user.addQuestionSet(qs);
+
+        userRepo.insert(user);
+        System.out.println("Data uploaded manually");
+        return "Data uploaded manually";
+	}*/
+	
+	/*
+	 * Creates a user with just two question sets
 	@GetMapping("/manual/uploadUser")
 	public String uploadUser() throws IOException {
 		UserInfo newUser = new UserInfo("Bob", "Smith", "email@email.com", "username1", "password1");
@@ -70,6 +144,7 @@ public class TestingController {
 	
 	// Manual Upload Question Sets
 	/*
+	 * Uploads all question sets
 	 * Commented to make sure it is not accidentally used
 	@GetMapping("/manual/uploadQuestionSets")
 	public String uploadQuestionSets() throws IOException {

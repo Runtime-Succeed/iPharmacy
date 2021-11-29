@@ -5,7 +5,7 @@ function handleSubmit() {
             "username": input,
             "password": password
     }
-
+    
     fetch('/login', {
         method: 'POST',
         headers: {
@@ -16,6 +16,7 @@ function handleSubmit() {
     .then(response => response.json())
 //    .then(data => console.log(data));
     .then(data => convert(data));
+
 
     window.onload = function() {
         const button = document.getElementById('bu');

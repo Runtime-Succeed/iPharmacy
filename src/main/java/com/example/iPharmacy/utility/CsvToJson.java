@@ -45,8 +45,7 @@ public class CsvToJson {
         jsonObject.put("answerCols", answerCols);
         JSONArray questions = new JSONArray();
         line = "";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+        try(BufferedReader br= new BufferedReader(new FileReader(filePath))) {
             int count = 0;
             while ((line = br.readLine()) != null)   //returns a Boolean value
             {
@@ -70,6 +69,7 @@ public class CsvToJson {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
         return new ObjectMapper().readValue(jsonObject.toString(), QuestionSet.class);
     }
 

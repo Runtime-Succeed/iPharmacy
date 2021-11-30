@@ -5,19 +5,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class QuestionSet {
 	
-	//unsure about if ID should be auto generated or set to title
 	@Id
+	private String id;
+	
 	private String title;
 	private int rows;
 	private String questionAsk;
 	private List<String> answerCols;
 	private List<Question> questions;
 	
-	public QuestionSet() {}
+	public QuestionSet() {
+		id = new ObjectId().toString();
+	}
 	
 	/**
 	 * 
@@ -28,12 +32,16 @@ public class QuestionSet {
 	 * @param questions
 	 */
 	public QuestionSet(String title, int rows, String questionAsk, List<String> answerCols, List<Question> questions) {
-		
+		id = new ObjectId().toString();
 		this.title = title;
 		this.rows = rows;
 		this.questionAsk = questionAsk;
 		this.answerCols = new ArrayList<>(answerCols);		
 		this.questions = new ArrayList<>(questions);	//shallow copy
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	public String getTitle() {
@@ -61,7 +69,7 @@ public class QuestionSet {
 	}
 
 	public List<String> getAnswerCols() {
-		return new ArrayList<>(answerCols);
+		return answerCols == null ? null : new ArrayList<>(answerCols);
 	}
 
 	public void setAnswerCols(List<String> answerCols) {
@@ -69,7 +77,7 @@ public class QuestionSet {
 	}
 
 	public List<Question> getQuestions() {
-		return new ArrayList<>(questions);
+		return questions == null ? null : new ArrayList<>(questions);
 	}
 
 	public void setQuestions(List<Question> questions) {

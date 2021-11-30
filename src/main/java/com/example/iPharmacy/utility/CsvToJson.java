@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,10 +14,10 @@ import com.example.iPharmacy.data.QuestionSet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CsvToJson {
-	
+
     private String filePath;
-    private String fileName;
-    
+    public String fileName;
+
     public CsvToJson(String aFilePath, String aFileName){
         filePath = aFilePath;
         fileName = aFileName;
@@ -33,6 +32,9 @@ public class CsvToJson {
         line = firstLine.readLine();
         firstLine.close();
         String[] firstRow = line.split(splitBy);
+        for(int i=0; i<firstRow.length; i++){
+            firstRow[i] = firstRow[i].trim();
+        }
         JSONArray answerCols = new JSONArray();
         for(int i=1; i<firstRow.length; i++){
             answerCols.add(firstRow[i]);
@@ -68,7 +70,6 @@ public class CsvToJson {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(numRows);
         return new ObjectMapper().readValue(jsonObject.toString(), QuestionSet.class);
     }
 
@@ -95,12 +96,5 @@ public class CsvToJson {
             is.close();
         }
         return -1;
-    }
-    
-    public static void main(String[] args) throws IOException {
-    	CsvToJson c = new CsvToJson("C:/Users/az463/Desktop/HTN_Dosage_List.csv","NAME");
-    	QuestionSet s = c.convertFile();
-    	System.out.println(s);
-    			
     }
 }

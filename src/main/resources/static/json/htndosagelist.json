@@ -1,24 +1,23 @@
 {
   "title" : "HTN Dosage List",
   "rows" : 3,
-  "questionAsk" : "Generic",
-  "answerCols" : [ "Brand", "Dose (mg)", "Max Dose (mg)" ],
+  "columns" : [ "Generic", "Brand", "Dose (mg)", "Max Dose (mg)" ],
   "questions" : [ {
-    "questionText" : "Chlorthalidone",
+    "qText" : "Chlorthalidone",
     "answers" : {
       "Brand" : [ "Thalitone" ],
       "Dose (mg)" : [ "25 QD" ],
       "Max Dose (mg)" : [ "100 QD" ]
     }
   }, {
-    "questionText" : "Lisinopril",
+    "qText" : "Lisinopril",
     "answers" : {
-      "Brand" : [ "Prinivil", "Zestril", "Qbrelis"],
+      "Brand" : [ "Prinivil", "Zestril", "Qbrelis" ],
       "Dose (mg)" : [ "10-40 QD" ],
       "Max Dose (mg)" : [ "40 QD" ]
     }
   }, {
-    "questionText" : "Hydralazine",
+    "qText" : "Hydralazine",
     "answers" : {
       "Brand" : [ "-1" ],
       "Dose (mg)" : [ "10-50 TID-QID" ],

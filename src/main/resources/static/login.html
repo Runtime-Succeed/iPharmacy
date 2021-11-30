@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>Signin to iPharmacy</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/signin.css" rel="stylesheet">
+  <script src="js/login.js"></script>
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+  <form>
+    <img class="mb-4" src="assets/bootstrap-reboot.svg" alt="iPharmacy Sign In" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="input" placeholder="">
+      <label for="input">Username</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="password" placeholder="">
+      <label for="password">Password</label>
+    </div>
+    <button id="bu" class="w-100 btn btn-lg btn-primary" type="button" onclick="handleSubmit()">Sign in</button>
+    <br>
+    <label>
+      <h6 id="showMessage" style="color:red">
+
+      </h6>
+    </label>
+    <br>
+    <label>
+      <h6>
+        Don't have account now?
+        <a href='signup.html'>sign up.</a>
+      </h6>
+    </label>
+    <p class="mt-5 mb-3 text-muted">&copy; 2021 iPharmacy</p>
+  </form>
+</main>
+</body>
+</html>

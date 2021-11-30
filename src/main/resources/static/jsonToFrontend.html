@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="debug"></div>
+<script>
+    fetch("json/HTN_alternative.json")
+    .then(response =>response.json())
+    .then(data=> {
+    document.write("<pre>" + JSON.stringify(data, null, 4) + "</pre>")
+    })
+</script>
+</body>
+</html>

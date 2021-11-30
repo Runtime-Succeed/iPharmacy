@@ -1,6 +1,5 @@
 package com.example.iPharmacy.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -8,23 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.iPharmacy.data.Question;
 import com.example.iPharmacy.data.QuestionSet;
-import com.example.iPharmacy.database.QuestionSetRepository;
-import com.example.iPharmacy.database.UserInfoRepository;
-import com.example.iPharmacy.database.UserInfoRepositoryTemplate;
+import com.example.iPharmacy.database.CustomUserInfoRepository;
 import com.example.iPharmacy.security.UserInfo;
-import com.example.iPharmacy.utility.CsvToJson;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Use this class for testing or manually editing data
@@ -33,32 +23,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TestingController {
 	
 	@Autowired
-	private UserInfoRepositoryTemplate mongoTemplate;
+	private CustomUserInfoRepository customUserRepo;
 
-	private QuestionSetRepository qsRepo;
-	private UserInfoRepository userRepo;
-	
 	@Autowired
-	public TestingController(QuestionSetRepository qsRepo, UserInfoRepository userRepo) {
-		this.qsRepo = qsRepo;
-		this.userRepo = userRepo;
-	}
-
-	@GetMapping(value = "/titles", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getTitle(Authentication a) throws JsonProcessingException {
-		UserInfo user = userRepo.findAllTitlesById(((UserInfo)a.getPrincipal()).getId());
-		ObjectMapper obj = new ObjectMapper().setSerializationInclusion(Include.NON_DEFAULT);
-		return obj.writeValueAsString(user.getQuestionSets());
-	}
-	
-	@GetMapping(value = "/data/text", produces = "text/plain")
-	public String getData() {
-		String s = "";
-		List<QuestionSet> questionSets = qsRepo.findAll();
-		for(QuestionSet qs : questionSets)
-			s += qs + "\n\n";
-		return s;
-	}
+	private CustomUserInfoRepository userRepo;
 	
 	// Deletes All Users
 	/*

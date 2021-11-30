@@ -17,8 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.example.iPharmacy.controllers.TestingController;
 import com.example.iPharmacy.data.QuestionSet;
-import com.example.iPharmacy.database.QuestionSetRepository;
-import com.example.iPharmacy.database.UserInfoRepository;
+import com.example.iPharmacy.database.CustomUserInfoRepository;
 import com.example.iPharmacy.security.UserInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,10 +28,7 @@ public class IPharmacyApplicationTests {
 	private MockMvc mvc;
 	
 	@MockBean
-	private QuestionSetRepository qsRepo;
-	
-	@MockBean
-	private UserInfoRepository userRepo;
+	private CustomUserInfoRepository userRepo;
 	
 	/**
 	 * Ensures GET endpoint is reachable and QuestionSet structure works properly

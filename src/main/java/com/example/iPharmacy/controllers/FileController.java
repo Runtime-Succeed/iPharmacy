@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 import com.example.iPharmacy.data.QuestionSet;
+import com.example.iPharmacy.database.CustomUserInfoRepository;
 import com.example.iPharmacy.database.UserInfoRepository;
 import com.example.iPharmacy.security.UserInfo;
 import com.example.iPharmacy.utility.CsvToJson;
@@ -47,7 +48,6 @@ public class FileController {
     }
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(Authentication auth, @RequestParam("file") MultipartFile file) {
-    	System.out.println("upload reached");
         UserInfo currentIDAndUsername = (UserInfo)auth.getPrincipal();
         String message = "";
         try {
@@ -60,14 +60,17 @@ public class FileController {
                 y[j] = temp[j];
             }
             nameOfFile = new String(y);
+
             try {
                 file.transferTo(Paths.get("uploads").resolve(nameFile));
+
                 CsvToJson fUpload = new CsvToJson("uploads/" + nameFile, nameOfFile);
                 QuestionSet qs = fUpload.convertFile();
                 
-                UserInfo currentUser = userRepo.findById(currentIDAndUsername.getId()).get();
+                UserInfo currentUser = userRepo.findById(currentIDAndUsername.getId()).orElseThrow();
                 currentUser.addQuestionSet(qs);
                 userRepo.save(currentUser);
+                
                 deleteFolderfiles(new File("uploads"));
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
                 storageService.deleteAll();

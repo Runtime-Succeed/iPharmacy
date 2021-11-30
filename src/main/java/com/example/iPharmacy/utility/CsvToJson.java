@@ -6,9 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.io.FileWriter;   // Import the FileWriter class
-import java.io.IOException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

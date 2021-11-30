@@ -12,13 +12,13 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import com.example.iPharmacy.database.UserInfoRepository;
+import com.example.iPharmacy.database.CustomUserInfoRepository;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
-	private UserInfoRepository userRepo;
+	private CustomUserInfoRepository customUserRepo;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -26,7 +26,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String inputUsername = (String)authentication.getPrincipal();
 		String inputPassword = (String)authentication.getCredentials();
 
-		UserInfo storedUser = userRepo.findPasswordAndSaltAndIdByUsername(inputUsername);
+		UserInfo storedUser = customUserRepo.findPasswordAndSaltAndIdByUsername(inputUsername);
 
 		if (storedUser == null) {
 			System.out.println("Username '" + inputUsername + "' does not exist.");

@@ -17,6 +17,10 @@ function getUsername() {
 
 function logout() {
     localStorage.setItem("username", "");
+    fetch ('/logout', {
+        method: "POST",
+        'Content-Type': 'application/json',
+    })
     window.location.href = 'index.html';
 }
 
@@ -28,4 +32,5 @@ async function uploadFile() {
             method: "POST",
             body: formData
         });
+        alert("File uploaded!");
 }

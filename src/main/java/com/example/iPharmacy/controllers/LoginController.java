@@ -3,6 +3,7 @@ package com.example.iPharmacy.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,10 +29,14 @@ public class LoginController {
 		String username = body.get("username").asText();
 		String password = body.get("password").asText();
 		
-		Authentication auth = authProvider.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		SecurityContextHolder.getContext().setAuthentication(auth);
-		
-		return mapper.createObjectNode().put("loginSuccess", true).put("username", username);
+		try {
+			Authentication auth = authProvider.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			SecurityContextHolder.getContext().setAuthentication(auth);
+			return mapper.createObjectNode().put("loginSuccess", true).put("username", username);
+		}
+		catch(BadCredentialsException e) {
+			return mapper.createObjectNode().put("loginSuccess", false);
+		}		
 	}
 
 }

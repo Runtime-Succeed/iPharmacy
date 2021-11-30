@@ -112,6 +112,7 @@ async function showMultipleChoice(questionPos) {
         node2.innerText = choiceString;
         node.appendChild(node2);
     }
+    getUsername()
 }
 
 
@@ -157,4 +158,30 @@ function checkAnswer() {
         correctNode.setAttribute('class','p-3 mb-2 bg-success text-white');
     }
 
+}
+
+function getUsername() {
+    if (localStorage.getItem("username") === "" || localStorage.getItem("username") == null) {
+//        console.log(localStorage.getItem("username"));
+        document.getElementById("signIn").style.display = "block";
+        document.getElementById("user").innerHTML = "";
+        document.getElementById("user").style.display = "none";
+        document.getElementById("logOut").style.display = "none";
+    }
+    else {
+        document.getElementById("signIn").style.display = "none";
+        document.getElementById("user").innerHTML = "Welcome, " + localStorage.getItem("username");
+        document.getElementById("user").style.display = "block";
+        document.getElementById("logOut").style.display = "block";
+    }
+}
+
+
+function logout() {
+    localStorage.setItem("username", "");
+    fetch ('/logout', {
+        method: "POST",
+        'Content-Type': 'application/json',
+    })
+    window.location.href = 'index.html';
 }

@@ -79,13 +79,13 @@
                 <!-- Modal body -->
                 <div class="modal-body mb-3">
                     <br>
-                    <form class="form was-validated" id="myForm">
+                    <form class="form needs-validation" novalidate onsubmit="return false" id="myForm">
                         <input class="form-control" type="file" id="fileupload" name="fileupload" required>
                         <div class="invalid-feedback">
                             Please select a file.
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-primary" onclick="uploadFile()">Submit File</button>
+                        <button type="submit" id="sub" class="btn btn-primary" onclick="uploadFile() ">Submit File</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                     </form>
                 </div>
@@ -97,8 +97,28 @@
         <p class="mb-1">&copy; 2021 iPharmacy</p>
     </footer>
 </div>
+<script type="text/javascript">
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
 
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
 
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
 
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+<!-- data-bs-toggle="modal" data-bs-target="#myModal"-->
+</script>
 </body>
 </html>
